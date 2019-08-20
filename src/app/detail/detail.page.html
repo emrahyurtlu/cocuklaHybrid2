@@ -1,0 +1,88 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="Geri"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      {{placeModel.name}}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-card>
+    <ion-slides pager="true">
+      <ion-slide *ngFor="let image of placeModel.images">
+        <img src="{{image}}" alt="{{placeModel.name}}"/>
+      </ion-slide>
+    </ion-slides>
+
+    <ion-card-header>
+      <ion-card-title>{{placeModel.name}}</ion-card-title>
+      <ion-card-subtitle>{{placeModel.category}}</ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-item>
+        <h2>Hakkımızda</h2>
+      </ion-item>
+      <ion-text padding>
+        {{placeModel.digest}}
+      </ion-text>
+
+      <ion-item>
+        <h2>İletişim</h2>
+      </ion-item>
+
+      <ion-list>
+        <ion-item>
+          <ion-icon name="map" slot="start"></ion-icon>
+          {{placeModel.address}}
+        </ion-item>
+        <ion-item>
+          <ion-icon name="call" slot="start"></ion-icon>
+          {{placeModel.phone}}
+        </ion-item>
+        <ion-item>
+          <ion-icon name="at" slot="start"></ion-icon>
+          {{placeModel.email}}
+        </ion-item>
+      </ion-list>
+
+      <ion-item>
+        <h2>Özellikler</h2>
+      </ion-item>
+
+      <ion-list>
+        <ion-item *ngFor="let p of placeModel.properties">
+          <ion-icon name="checkmark" slot="start"></ion-icon>
+          {{getPropertyName(p)}}
+        </ion-item>
+      </ion-list>
+
+      <ion-item>
+        <h2>Yorumlar</h2>
+      </ion-item>
+
+      <ion-button shape="round" expand="block" (click)="gotoCommentScreen(placeModel.documentID)">YORUM YAPIN
+      </ion-button>
+      <ion-list *ngFor="let comment of placeModel.comments">
+        <ion-item *ngIf="comment.isApproved">
+          <ion-avatar slot="start">
+            <img src="assets/img/cocukla_logo.png" alt="Çocukla logo"/>
+          </ion-avatar>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <h2>
+                  {{comment.name}}
+                </h2>
+                <ion-text>{{comment.content}}</ion-text>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

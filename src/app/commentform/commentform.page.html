@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="Geri"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      Yorum yapın
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <h3>
+    Yorum yapın
+  </h3>
+  <form [formGroup]="entity" novalidate>
+    <ion-item>
+      <ion-label position="floating">
+        Oy verin
+      </ion-label>
+      <ion-select name="rating" formControlName="rating" [(ngModel)]="commentModel.rating">
+        <ion-select-option value="1">
+          1
+        </ion-select-option>
+        <ion-select-option value="2">
+          2
+        </ion-select-option>
+        <ion-select-option value="3">
+          3
+        </ion-select-option>
+        <ion-select-option value="4">
+          4
+        </ion-select-option>
+        <ion-select-option value="5">
+          5
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">
+        Yorumunuz...
+      </ion-label>
+      <ion-textarea [(ngModel)]="commentModel.content" name="content" formControlName="content"></ion-textarea>
+    </ion-item>
+    <ion-button shape="round" expand="block" [disabled]="!entity.valid" (click)="save()">Tamam</ion-button>
+  </form>
+
+</ion-content>

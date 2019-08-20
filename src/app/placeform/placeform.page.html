@@ -1,0 +1,164 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home" text="Geri" (click)="reset()"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      {{myTitle}}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content padding>
+
+
+  <form [formGroup]="entity" novalidate enctype="multipart/form-data">
+    <ion-item>
+      <h4>
+        Genel Bilgiler
+      </h4>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">
+        Mekan adı
+      </ion-label>
+      <ion-input type="text" placeholder="Boş bırakılamaz" [(ngModel)]="placeModel.name" formControlName="name"
+                 name="name"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">
+        Özet
+      </ion-label>
+      <ion-textarea placeholder="Boş bırakılamaz" formControlName="digest" name="digest"
+                    [(ngModel)]="placeModel.digest"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">
+        Kategori
+      </ion-label>
+      <ion-select formControlName="category" name="category" [(ngModel)]="placeModel.category">
+        <ion-select-option value="Mekanlar">
+          Mekanlar
+        </ion-select-option>
+        <ion-select-option value="Aktiviteler">
+          Aktiviteler
+        </ion-select-option>
+        <ion-select-option value="Sağlık">
+          Sağlık
+        </ion-select-option>
+        <ion-select-option value="Alışveriş">
+          Alışveriş
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-button shape="round" expand="block" (click)="takePhoto()">Fotoğraf Seç</ion-button>
+
+    <ion-grid *ngIf="tempPhotos.length > 0">
+      <ion-label>Seçilenler</ion-label>
+      <ion-row>
+        <ion-col *ngFor="let image of tempPhotos">
+          <ion-avatar>
+            <ion-img src="{{image}}" class="my-image"></ion-img>
+          </ion-avatar>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid *ngIf="placeModel.images.length > 0">
+      <ion-label>Yüklü olanlar</ion-label>
+      <ion-row>
+        <ion-col *ngFor="let image of placeModel.images">
+          <ion-avatar>
+            <ion-img src="{{image}}" class="my-image"></ion-img>
+          </ion-avatar>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-item>
+      <h4>
+        Adres Bilgileri
+      </h4>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">
+        Koordinat
+      </ion-label>
+      <ion-input type="text" placeholder="Boş bırakılamaz" formControlName="coordinate" name="coordinate"
+                 [(ngModel)]="placeModel.position"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">
+        İl
+      </ion-label>
+      <ion-select formControlName="city" name="city" [(ngModel)]="placeModel.city"
+                  (ionChange)="setDistricts(placeModel.city)">
+        <ion-select-option *ngFor="let city of cities" value="{{city.city_name}}">
+          {{city.city_name}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">
+        İlçe
+      </ion-label>
+      <ion-select formControlName="district" name="district" [(ngModel)]="placeModel.district">
+        <ion-select-option *ngFor="let d of districts" value="{{d}}">
+          {{d}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">
+        Telefon
+      </ion-label>
+      <ion-input type="tel" placeholder="Boş bırakılamaz" formControlName="phone" name="phone"
+                 [(ngModel)]="placeModel.phone"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">
+        Eposta
+      </ion-label>
+      <ion-input type="email" placeholder="Boş bırakılamaz" formControlName="email" name="email"
+                 [(ngModel)]="placeModel.email"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">
+        Adres
+      </ion-label>
+      <ion-textarea placeholder="Boş bırakılamaz" formControlName="address" name="address"
+                    [(ngModel)]="placeModel.address"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <h4>Özellikler</h4>
+    </ion-item>
+    <ion-item *ngFor="let property of properties">
+      <ion-label>
+        {{property.content}}
+      </ion-label>
+      <ion-toggle (ionChange)="setAttr(property.slug)" checked="{{property.isChecked}}"></ion-toggle>
+    </ion-item>
+
+
+    <ion-button shape="round" expand="block" [disabled]="!entity.valid" (click)="save()">Kaydet</ion-button>
+
+    <div class="spacer-10"></div>
+
+    <ion-button shape="round" expand="block" *ngIf="placeModel.isApproved == false"
+                (click)="approve(placeModel.documentID)" color="secondary">Onayla
+    </ion-button>
+
+    <ion-button shape="round" expand="block" *ngIf="placeModel.isApproved"
+                (click)="unApprove(placeModel.documentID)" color="secondary">Onayı iptal et
+    </ion-button>
+
+    <div class="spacer-10"></div>
+
+    <ion-button shape="round" expand="block" *ngIf="placeModel.isDeleted == false"
+                (click)="delete(placeModel.documentID)" color="dark">Sil
+    </ion-button>
+
+  </form>
+</ion-content>

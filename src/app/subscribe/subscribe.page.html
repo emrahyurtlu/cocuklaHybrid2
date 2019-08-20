@@ -1,0 +1,59 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home" text="Geri"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      {{myTitle}}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <img src="assets/img/wVsG5wfWSyF6jYO4UdVE_cocukla_logo.png"
+       style="display:block;width:86px;height:auto;margin-left:auto;margin-right:auto;"/>
+  <div class="spacer-10"></div>
+  <form [formGroup]="newUser">
+    <ion-item>
+      <ion-label position="floating">
+        Ad Soyad
+      </ion-label>
+      <ion-input type="text" placeholder="Ad soyad giriniz" [(ngModel)]="userModel.name" name="name" formControlName="name" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">
+        Eposta
+      </ion-label>
+      <ion-input type="email" placeholder="Eposta giriniz" [(ngModel)]="userModel.email" name="email" formControlName="email" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">
+        Şifre
+      </ion-label>
+      <ion-input type="password" placeholder="Şifre giriniz" [(ngModel)]="userModel.password"
+                 name="password" formControlName="password" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">
+        İl
+      </ion-label>
+      <ion-select formControlName="city" name="city" [(ngModel)]="userModel.city"
+                  (ionChange)="setDistricts(userModel.city)">
+        <ion-select-option *ngFor="let city of cities" value="{{city.city_name}}">
+          {{city.city_name}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">
+        İlçe
+      </ion-label>
+      <ion-select formControlName="district" name="district" [(ngModel)]="userModel.district">
+        <ion-select-option *ngFor="let d of districts" value="{{d}}">
+          {{d}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+  </form>
+  <ion-button shape="round" expand="block" [disabled]="!newUser.valid" (click)="subscribe()">ÜYE OL</ion-button>
+</ion-content>
