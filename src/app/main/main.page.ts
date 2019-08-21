@@ -7,6 +7,7 @@ import {PlaceService} from '../services/place.service';
 import {PlaceModel} from '../models/PlaceModel';
 import {ModalController} from '@ionic/angular';
 import {LeftnavPage} from '../leftnav/leftnav.page';
+import {Firebase} from '@ionic-native/firebase/ngx';
 
 @Component({
     selector: 'app-main',
@@ -18,8 +19,9 @@ export class MainPage implements OnInit {
     public places: Array<PlaceModel>;
 
     // tslint:disable-next-line:max-line-length
-    constructor(public router: Router, public userService: UserService, public alertHelper: AlertHelper, public placeService: PlaceService, public modalCtrl: ModalController) {
+    constructor(public router: Router, public userService: UserService, public alertHelper: AlertHelper, public placeService: PlaceService, public modalCtrl: ModalController, private firebase: Firebase) {
         this.getByCategory(this.category);
+        this.getToken();
     }
 
     ngOnInit() {
@@ -76,11 +78,25 @@ export class MainPage implements OnInit {
         await this.getByCategory(this.category);
     }
 
-    async presentModal() {
+    async showMenu() {
         console.log('Modal started');
         const modal = await this.modalCtrl.create({
             component: LeftnavPage,
         });
         await modal.present();
+    }
+
+    async getToken() {
+        await this.firebase.grantPermission();
+        this.firebase.getToken()
+            .then(token => console.log(`The token is ${token}`))
+            .catch(error => console.error('Error getting token', error));
+
+        this.firebase.onNotificationOpen()
+            .subscribe(data => console.log(`User opened a notification ${data}`));
+
+        this.firebase.onTokenRefresh()
+            .subscribe((token: string) => console.log(`Got a new token ${token}`));
+
     }
 }

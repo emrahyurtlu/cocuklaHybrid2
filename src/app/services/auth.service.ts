@@ -24,6 +24,7 @@ export class AuthService {
 
     async login(model: UserModel) {
         try {
+            await this.alertHelper.loading();
             const tempUser = await this.afAuth.auth.signInWithEmailAndPassword(model.email, model.password);
             console.log('tempUser', tempUser);
             if (tempUser.user.uid !== null) {
@@ -33,10 +34,12 @@ export class AuthService {
                     AppData.user = user;
                     AppData.showMenu = true;
                     // this.router.navigate(['home/tab1']);
+                    await this.alertHelper.dismissLoading();
                     this.navCtrl.navigateRoot('home');
                 }
             }
         } catch (e) {
+            await this.alertHelper.dismissLoading();
             console.error(e.code);
             switch (e.code) {
                 case 'auth/user-not-found':

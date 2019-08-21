@@ -12,7 +12,6 @@ import {UserService} from '../services/user.service';
 })
 
 export class ProfilePage implements OnInit {
-  public myTitle: any = 'Profilim';
   public userModel: UserModel = AppData.user;
   public changePassword = false;
 

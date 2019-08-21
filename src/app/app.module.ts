@@ -15,9 +15,10 @@ import {environment} from '../environments/environment';
 import {Geolocation} from '@ionic-native/geolocation/ngx';
 import {GooglePlus} from '@ionic-native/google-plus/ngx';
 import {Camera} from '@ionic-native/camera/ngx';
-import {AngularFireModule} from '@angular/fire';
-import {LeftnavPage} from './leftnav/leftnav.page';
+import {AngularFireModule, FirebaseApp} from '@angular/fire';
+import {ServiceWorkerModule} from '@angular/service-worker';
 import {LeftnavPageModule} from './leftnav/leftnav.module';
+import {Firebase} from '@ionic-native/firebase/ngx';
 
 @NgModule({
     declarations: [AppComponent],
@@ -31,7 +32,7 @@ import {LeftnavPageModule} from './leftnav/leftnav.module';
         AngularFireAuthModule,
         AngularFireMessagingModule,
         LeftnavPageModule,
-        // ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production})
+        ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production})
     ],
     providers: [
         StatusBar,
@@ -39,6 +40,7 @@ import {LeftnavPageModule} from './leftnav/leftnav.module';
         Geolocation,
         GooglePlus,
         Camera,
+        Firebase,
         {provide: RouteReuseStrategy, useClass: IonicRouteStrategy}
     ],
     bootstrap: [AppComponent]

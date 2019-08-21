@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {ModalController} from '@ionic/angular';
-import {LeftnavPage} from '../leftnav/leftnav.page';
-import {NgModel} from '@angular/forms';
+import {Firebase} from '@ionic-native/firebase/ngx';
+import {AlertHelper} from '../helpers/alert.helper';
 
 @Component({
     selector: 'app-test',
@@ -11,17 +10,13 @@ import {NgModel} from '@angular/forms';
 
 export class TestPage implements OnInit {
 
-    constructor(public modalCtrl: ModalController) {
+    constructor(public alertHelper: AlertHelper) {
     }
 
     ngOnInit() {
     }
 
-    async openModal() {
-        console.log('Modal started');
-        const modal = await this.modalCtrl.create({
-            component: LeftnavPage
-        });
-        await modal.present();
+    async buttonClick() {
+        await this.alertHelper.loading();
     }
 }

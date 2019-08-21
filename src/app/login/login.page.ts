@@ -2,11 +2,12 @@ import {Component, OnInit} from '@angular/core';
 import {UserModel} from '../models/UserModel';
 import {LoginService} from '../services/login.service';
 import {AuthService} from '../services/auth.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Router} from '@angular/router';
 import {CacheService} from '../services/cache.service';
 import {Geolocation} from '@ionic-native/geolocation/ngx';
 import {AppData} from '../app.data';
 import {LocationModel} from '../models/LocationModel';
+import {AlertHelper} from '../helpers/alert.helper';
 
 @Component({
     selector: 'app-login',
@@ -18,8 +19,8 @@ export class LoginPage implements OnInit {
     public userModel: UserModel = new UserModel();
     showSpinner = false;
 
-  // tslint:disable-next-line:max-line-length
-    constructor(public authService: AuthService, public router: Router, public cacheService: CacheService, public route: ActivatedRoute, public geolocation: Geolocation) {
+    // tslint:disable-next-line:max-line-length
+    constructor(public authService: AuthService, public router: Router, public cacheService: CacheService, public geolocation: Geolocation) {
         this.cacheService.cacheProperties();
         this.cacheService.cacheCities();
     }
@@ -44,11 +45,9 @@ export class LoginPage implements OnInit {
     }
 
     login() {
-        this.showSpinner = true;
         console.log(this.userModel);
         this.getGeolocation();
         this.authService.login(this.userModel);
-        this.showSpinner = false;
     }
 
     loginWithGoogle() {

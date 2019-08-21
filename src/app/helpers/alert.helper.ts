@@ -5,7 +5,7 @@ import {Injectable} from '@angular/core';
     providedIn: 'root'
 })
 export class AlertHelper {
-    constructor(public loadingController: LoadingController, public toastController: ToastController) {
+    constructor(private loadingController: LoadingController, private toastController: ToastController) {
 
     }
 
@@ -40,10 +40,14 @@ export class AlertHelper {
     }
 
     async loading() {
-        const loading = await this.loadingController.create({
+        const loader = await this.loadingController.create({
             message: 'Lütfen bekleyiniz...',
-            duration: 2000
+            duration: 1500
         });
-        await loading.present();
+        await loader.present();
+    }
+
+    async dismissLoading() {
+        await this.loadingController.dismiss();
     }
 }
