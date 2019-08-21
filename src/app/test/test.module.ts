@@ -6,6 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { TestPage } from './test.page';
+import {GooglemapComponent} from '../components/googlemap/googlemap.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,9 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [TestPage]
+  exports: [
+    GooglemapComponent
+  ],
+  declarations: [TestPage, GooglemapComponent]
 })
 export class TestPageModule {}

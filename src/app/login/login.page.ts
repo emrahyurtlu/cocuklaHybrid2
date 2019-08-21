@@ -7,7 +7,6 @@ import {CacheService} from '../services/cache.service';
 import {Geolocation} from '@ionic-native/geolocation/ngx';
 import {AppData} from '../app.data';
 import {LocationModel} from '../models/LocationModel';
-import {AlertHelper} from '../helpers/alert.helper';
 
 @Component({
     selector: 'app-login',
@@ -60,12 +59,7 @@ export class LoginPage implements OnInit {
     async getGeolocation() {
         try {
             const result = await this.geolocation.getCurrentPosition();
-            let locationModel = new LocationModel();
-            locationModel.latitude = result.coords.latitude.toString();
-            locationModel.longitude = result.coords.longitude.toString();
-            locationModel.city = '';
-            locationModel.district = '';
-            AppData.location = locationModel;
+            AppData.location = new LocationModel(result.coords.latitude, result.coords.longitude, '', '');
             console.log(AppData.location);
         } catch (e) {
             console.log('Error getting location' + JSON.stringify(e));

@@ -15,13 +15,15 @@ import {environment} from '../environments/environment';
 import {Geolocation} from '@ionic-native/geolocation/ngx';
 import {GooglePlus} from '@ionic-native/google-plus/ngx';
 import {Camera} from '@ionic-native/camera/ngx';
-import {AngularFireModule, FirebaseApp} from '@angular/fire';
+import {AngularFireModule} from '@angular/fire';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {LeftnavPageModule} from './leftnav/leftnav.module';
 import {Firebase} from '@ionic-native/firebase/ngx';
 
 @NgModule({
-    declarations: [AppComponent],
+    declarations: [
+        AppComponent
+    ],
     entryComponents: [],
     imports: [
         BrowserModule,
@@ -43,6 +45,7 @@ import {Firebase} from '@ionic-native/firebase/ngx';
         Firebase,
         {provide: RouteReuseStrategy, useClass: IonicRouteStrategy}
     ],
+    exports: [],
     bootstrap: [AppComponent]
 })
 export class AppModule {
