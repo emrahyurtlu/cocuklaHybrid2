@@ -18,4 +18,14 @@ export class HomePage {
             console.log(e);
         }
     }
+
+    ionViewDidLoad() {
+        try {
+            if (AppData.user == null) {
+                this.router.navigate(['/login']).then(r => console.log('Unauthorized access: routing to login page.'));
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    }
 }

@@ -12,7 +12,8 @@ const routes: Routes = [
     {path: 'places', loadChildren: './places/places.module#PlacesPageModule'},
     {path: 'profile', loadChildren: './profile/profile.module#ProfilePageModule'},
     {path: 'subscribe', loadChildren: './subscribe/subscribe.module#SubscribePageModule'},
-    {path: 'test', loadChildren: './test/test.module#TestPageModule'}
+    {path: 'test', loadChildren: './test/test.module#TestPageModule'},
+  { path: 'explore', loadChildren: './explore/explore.module#ExplorePageModule' }
 ];
 
 @NgModule({

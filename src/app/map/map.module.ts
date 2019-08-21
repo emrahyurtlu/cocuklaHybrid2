@@ -7,7 +7,7 @@ import {IonicModule} from '@ionic/angular';
 
 import {MapPage} from './map.page';
 import {AppModule} from '../app.module';
-import {GooglemapComponent} from '../components/googlemap/googlemap.component';
+import {ComponentsModule} from '../components/components.module';
 
 const routes: Routes = [
     {
@@ -22,12 +22,10 @@ const routes: Routes = [
         FormsModule,
         IonicModule,
         RouterModule.forChild(routes),
-        AppModule
+        AppModule,
+        ComponentsModule
     ],
-    exports: [
-        GooglemapComponent
-    ],
-    declarations: [MapPage, GooglemapComponent]
+    declarations: [MapPage]
 })
 export class MapPageModule {
 }

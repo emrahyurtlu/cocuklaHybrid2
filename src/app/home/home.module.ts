@@ -6,18 +6,17 @@ import {FormsModule} from '@angular/forms';
 import {HomePageRoutingModule} from './home.router.module';
 
 import {HomePage} from './home.page';
+import {ComponentsModule} from '../components/components.module';
 
 @NgModule({
     imports: [
         IonicModule,
         CommonModule,
         FormsModule,
-        HomePageRoutingModule
+        HomePageRoutingModule,
+        ComponentsModule
     ],
     declarations: [HomePage]
 })
 export class HomePageModule {
-    constructor() {
-
-    }
 }

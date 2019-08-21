@@ -33,7 +33,7 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: () =>
-              import('../map/map.module').then(m => m.MapPageModule)
+              import('../explore/explore.module').then(m => m.ExplorePageModule)
           }
         ]
       },
