@@ -14,7 +14,7 @@ export class AppData {
     static getLatLong() {
         let result = '';
         if (AppData.location.latitude !== null && AppData.location.longitude !== null) {
-            result = AppData.location.latitude.toString() + ',' + AppData.location.longitude.toString();
+            result = `${AppData.location.latitude.toString()},${AppData.location.longitude.toString()}`;
         }
         return result;
     }

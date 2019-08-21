@@ -6,7 +6,7 @@ import {Router} from '@angular/router';
 import {AppData} from '../app.data';
 import {AlertHelper} from '../helpers/alert.helper';
 import {Observable} from 'rxjs';
-import {Platform} from '@ionic/angular';
+import {NavController, Platform} from '@ionic/angular';
 import * as firebase from 'firebase';
 import {GooglePlus} from '@ionic-native/google-plus/ngx';
 
@@ -18,7 +18,7 @@ export class AuthService {
     user: Observable<firebase.User>;
 
     // tslint:disable-next-line:max-line-length
-    constructor(public afAuth: AngularFireAuth, public userService: UserService, public router: Router, public alertHelper: AlertHelper, public gplus: GooglePlus, public  platform: Platform) {
+    constructor(public afAuth: AngularFireAuth, public userService: UserService, public router: Router, public alertHelper: AlertHelper, public gplus: GooglePlus, public  platform: Platform, public navCtrl: NavController) {
         this.user = this.afAuth.authState;
     }
 
@@ -32,7 +32,8 @@ export class AuthService {
                 if (user.email !== '') {
                     AppData.user = user;
                     AppData.showMenu = true;
-                    this.router.navigate(['home/tab1']);
+                    // this.router.navigate(['home/tab1']);
+                    this.navCtrl.navigateRoot('home');
                 }
             }
         } catch (e) {

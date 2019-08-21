@@ -11,7 +11,8 @@ const routes: Routes = [
     {path: 'placeform', loadChildren: './placeform/placeform.module#PlaceformPageModule'},
     {path: 'places', loadChildren: './places/places.module#PlacesPageModule'},
     {path: 'profile', loadChildren: './profile/profile.module#ProfilePageModule'},
-    {path: 'subscribe', loadChildren: './subscribe/subscribe.module#SubscribePageModule'}
+    {path: 'subscribe', loadChildren: './subscribe/subscribe.module#SubscribePageModule'},
+    {path: 'test', loadChildren: './test/test.module#TestPageModule'}
 ];
 
 @NgModule({
@@ -20,4 +21,5 @@ const routes: Routes = [
     ],
     exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule {
+}

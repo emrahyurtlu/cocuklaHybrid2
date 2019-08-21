@@ -1,0 +1,46 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="end">
+            <ion-button (click)="dismiss()">
+                <ion-icon icon="close"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>Menü</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-list>
+        <ion-menu-toggle auto-hide="false">
+            <ion-item href="/profile">
+                <ion-icon slot="start" name="person"></ion-icon>
+                <ion-label>
+                    Profilim
+                </ion-label>
+            </ion-item>
+            <ion-item href="/places">
+                <ion-icon slot="start" name="pin"></ion-icon>
+                <ion-label>
+                    Mekanlarım
+                </ion-label>
+            </ion-item>
+            <ion-item href="/approvement" *ngIf="userCanApprove">
+                <ion-icon slot="start" name="checkmark-circle"></ion-icon>
+                <ion-label>
+                    Onay Bekleyenler
+                </ion-label>
+            </ion-item>
+            <ion-item href="/logout">
+                <ion-icon slot="start" name="log-out"></ion-icon>
+                <ion-label>
+                    Çıkış
+                </ion-label>
+            </ion-item>
+        </ion-menu-toggle>
+    </ion-list>
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-button (click)="dismiss()" shape="rounded" expand="full">Kapat</ion-button>
+  </ion-toolbar>
+</ion-footer>

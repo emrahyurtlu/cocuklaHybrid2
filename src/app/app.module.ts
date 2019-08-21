@@ -16,6 +16,8 @@ import {Geolocation} from '@ionic-native/geolocation/ngx';
 import {GooglePlus} from '@ionic-native/google-plus/ngx';
 import {Camera} from '@ionic-native/camera/ngx';
 import {AngularFireModule} from '@angular/fire';
+import {LeftnavPage} from './leftnav/leftnav.page';
+import {LeftnavPageModule} from './leftnav/leftnav.module';
 
 @NgModule({
     declarations: [AppComponent],
@@ -28,6 +30,7 @@ import {AngularFireModule} from '@angular/fire';
         AngularFirestoreModule,
         AngularFireAuthModule,
         AngularFireMessagingModule,
+        LeftnavPageModule,
         // ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production})
     ],
     providers: [

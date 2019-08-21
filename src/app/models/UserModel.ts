@@ -6,6 +6,8 @@ export class UserModel {
     public district: string;
     public favorites: Array<string> = [];
     public messagingTokens: Array<string> = [];
+    public isAuthorized: boolean;
+    public loginType: number;
 
     toObject(): object {
         return {
@@ -15,7 +17,9 @@ export class UserModel {
             city: this.city,
             district: this.district,
             favorites: this.favorites,
-            messagingTokens: this.messagingTokens
+            messagingTokens: this.messagingTokens,
+            isAuthorized: this.isAuthorized,
+            loginType: this.loginType,
         };
     }
 }

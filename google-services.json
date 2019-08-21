@@ -1,0 +1,87 @@
+{
+  "project_info": {
+    "project_number": "97541673682",
+    "firebase_url": "https://cocukla-app.firebaseio.com",
+    "project_id": "cocukla-app",
+    "storage_bucket": "cocukla-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:97541673682:android:15006e004474b061",
+        "android_client_info": {
+          "package_name": "com.cocukla.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "97541673682-a0kuk0bfqsffapkadpsdbv929n21c7be.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cocukla.app",
+            "certificate_hash": "33ece5970b3b9a8e9293cca6006809cbcb7a8f1d"
+          }
+        },
+        {
+          "client_id": "97541673682-0i5j71qtmeglh632so38set4rsitofgb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cocukla.app",
+            "certificate_hash": "a93d1e3388a17c79ce6628b310a373d0d76db1f0"
+          }
+        },
+        {
+          "client_id": "97541673682-56rg9nencdljmpiq12n5jaka3ief3aup.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cocukla.app",
+            "certificate_hash": "b741f1f3300ea6bfbd4ee17287714f608cdda6a7"
+          }
+        },
+        {
+          "client_id": "97541673682-nj6m69ffr368q8k3isv2fednucuu5eh2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cocukla.app",
+            "certificate_hash": "31abb00f8f89ebc200ae0d78830bea742150f9a1"
+          }
+        },
+        {
+          "client_id": "97541673682-cs8q363scbp9c5utvdhprtilid01dg58.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cocukla.app",
+            "certificate_hash": "dc395a7762f69ad1c0d85db1a830629fd21aa460"
+          }
+        },
+        {
+          "client_id": "97541673682-blaqcb75q8sgnpoocjve9ucraeaod2km.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQzta21qh_74XJ8z_T8dqgLaCi1R3mM5Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "97541673682-blaqcb75q8sgnpoocjve9ucraeaod2km.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "97541673682-n5arn8g6rp15en7etkjgs5996noqutpp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.cocukla.app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
