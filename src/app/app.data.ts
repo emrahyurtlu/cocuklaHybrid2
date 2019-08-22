@@ -9,7 +9,7 @@ export class AppData {
     static cities: Array<CityModel>;
     static properties: Array<PropertyModel>;
     static location: LocationModel;
-    static showMenu = false;
+    static dd: string;
 
     static getLatLong() {
         let result = '';

@@ -42,7 +42,7 @@
       </ion-label>
       <ion-textarea [(ngModel)]="commentModel.content" name="content" formControlName="content"></ion-textarea>
     </ion-item>
-    <ion-button shape="round" expand="block" [disabled]="!entity.valid" (click)="save()">Tamam</ion-button>
+    <ion-button shape="round.none" expand="block" [disabled]="!entity.valid" (click)="save()">Tamam</ion-button>
   </form>
 
 </ion-content>

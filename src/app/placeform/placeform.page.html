@@ -53,7 +53,7 @@
       </ion-select>
     </ion-item>
 
-    <ion-button shape="round" expand="block" (click)="takePhoto()">Fotoğraf Seç</ion-button>
+    <ion-button shape="round.none" expand="block" (click)="takePhoto()">Fotoğraf Seç</ion-button>
 
     <ion-grid *ngIf="tempPhotos.length > 0">
       <ion-label>Seçilenler</ion-label>
@@ -142,21 +142,21 @@
     </ion-item>
 
 
-    <ion-button shape="round" expand="block" [disabled]="!entity.valid" (click)="save()">Kaydet</ion-button>
+    <ion-button shape="round.none" expand="block" [disabled]="!entity.valid" (click)="save()">Kaydet</ion-button>
 
     <div class="spacer-10"></div>
 
-    <ion-button shape="round" expand="block" *ngIf="placeModel.isApproved == false"
+    <ion-button shape="round.none" expand="block" *ngIf="placeModel.isApproved == false"
                 (click)="approve(placeModel.documentID)" color="secondary">Onayla
     </ion-button>
 
-    <ion-button shape="round" expand="block" *ngIf="placeModel.isApproved"
+    <ion-button shape="round.none" expand="block" *ngIf="placeModel.isApproved"
                 (click)="unApprove(placeModel.documentID)" color="secondary">Onayı iptal et
     </ion-button>
 
     <div class="spacer-10"></div>
 
-    <ion-button shape="round" expand="block" *ngIf="placeModel.isDeleted == false"
+    <ion-button shape="round.none" expand="block" *ngIf="placeModel.isDeleted == false"
                 (click)="delete(placeModel.documentID)" color="dark">Sil
     </ion-button>
 

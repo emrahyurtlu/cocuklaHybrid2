@@ -64,7 +64,7 @@
         <h2>Yorumlar</h2>
       </ion-item>
 
-      <ion-button shape="round" expand="block" (click)="gotoCommentScreen(placeModel.documentID)">YORUM YAPIN
+      <ion-button shape="round.none" expand="block" (click)="gotoCommentScreen(placeModel.documentID)">YORUM YAPIN
       </ion-button>
       <ion-list *ngFor="let comment of placeModel.comments">
         <ion-item *ngIf="comment.isApproved">

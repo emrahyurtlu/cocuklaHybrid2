@@ -17,6 +17,8 @@ import {Firebase} from '@ionic-native/firebase/ngx';
 export class MainPage implements OnInit {
     public category = 'Mekanlar';
     public places: Array<PlaceModel>;
+    isAuthorized = AppData.user !== null;
+    public dd = AppData.dd;
 
     // tslint:disable-next-line:max-line-length
     constructor(public router: Router, public userService: UserService, public alertHelper: AlertHelper, public placeService: PlaceService, public modalCtrl: ModalController, private firebase: Firebase) {

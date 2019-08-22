@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firestore';
 import {PlaceModel} from '../models/PlaceModel';
-import {CommentModel} from "../models/CommentModel";
+import {CommentModel} from '../models/CommentModel';
 
 @Injectable({
     providedIn: 'root'
@@ -28,10 +28,26 @@ export class PlaceService {
 
     async getByCategory(category: string) {
         try {
-            let places: Array<PlaceModel> = new Array<PlaceModel>();
+            const places: Array<PlaceModel> = new Array<PlaceModel>();
             const result = await this.collection.ref.where('category', '==', category).where('isApproved', '==', true).where('isDeleted', '==', false).get();
             result.docs.forEach(doc => {
-                let place: PlaceModel = doc.data() as PlaceModel;
+                const place: PlaceModel = doc.data() as PlaceModel;
+                place.documentID = doc.id;
+                places.push(place);
+            });
+            return places;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    async getByCity(city: string) {
+        try {
+            let places: Array<PlaceModel> = new Array<PlaceModel>();
+            // tslint:disable-next-line:max-line-length
+            const result = await this.collection.ref.where('city', '==', city).where('isApproved', '==', true).where('isDeleted', '==', false).get();
+            result.docs.forEach(doc => {
+                const place: PlaceModel = doc.data() as PlaceModel;
                 place.documentID = doc.id;
                 places.push(place);
             });
@@ -43,10 +59,10 @@ export class PlaceService {
 
     async getMyPlaces(email: string) {
         try {
-            let places: Array<PlaceModel> = new Array<PlaceModel>();
+            const places: Array<PlaceModel> = new Array<PlaceModel>();
             const result = await this.collection.ref.where('owner', '==', email).get();
             result.docs.forEach(doc => {
-                let place: PlaceModel = doc.data() as PlaceModel;
+                const place: PlaceModel = doc.data() as PlaceModel;
                 place.documentID = doc.id;
                 places.push(place);
             });
@@ -58,10 +74,10 @@ export class PlaceService {
 
     async getList() {
         try {
-            let places: Array<PlaceModel> = new Array<PlaceModel>();
+            const places: Array<PlaceModel> = new Array<PlaceModel>();
             const result = await this.collection.ref.get();
             result.docs.forEach(doc => {
-                let place: PlaceModel = doc.data() as PlaceModel;
+                const place: PlaceModel = doc.data() as PlaceModel;
                 place.documentID = doc.id;
                 places.push(place);
             });
@@ -81,7 +97,7 @@ export class PlaceService {
         }
     }
 
-    async update(documentID: string, model: PlaceModel) : Promise<boolean> {
+    async update(documentID: string, model: PlaceModel): Promise<boolean> {
         try {
             await this.collection.doc(documentID).update(model);
             return true;
@@ -134,7 +150,7 @@ export class PlaceService {
     async addComment(model: CommentModel, documentID: string) {
         try {
             console.log(documentID);
-            let document = await this.get(documentID);
+            const document = await this.get(documentID);
             document.comments.push(model.toObject());
             console.log(document.comments);
             await this.update(documentID, document);
@@ -147,10 +163,10 @@ export class PlaceService {
 
     async getByCategoryAndKeyword(category: string, keyword: string) {
         try {
-            let places = await this.getByCategory(category);
-            let tempArr: Array<PlaceModel> = new Array<PlaceModel>();
+            const places = await this.getByCategory(category);
+            const tempArr: Array<PlaceModel> = new Array<PlaceModel>();
             if (places.length > 0) {
-                for (let p of places) {
+                for (const p of places) {
                     if (p.name.toLowerCase().search(keyword.toLowerCase()) > -1) {
                         tempArr.push(p);
                     }

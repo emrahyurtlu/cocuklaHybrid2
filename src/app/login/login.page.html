@@ -17,7 +17,7 @@
       <ion-input type="password" placeholder="Şifre giriniz" [(ngModel)]="userModel.password" name="password" required></ion-input>
     </ion-item>
     <div class="spacer"></div>
-    <ion-button shape="round" expand="block" type="submit"><ion-spinner *ngIf="showSpinner"></ion-spinner> GİRİŞ YAP</ion-button>
+    <ion-button shape="round.none" expand="block" type="submit">GİRİŞ YAP</ion-button>
 
   </form>
 
@@ -27,9 +27,9 @@
 
   <div class="spacer-20"></div>
 
-  <ion-button shape="round" expand="block" color="facebook">FACEBOOK İLE GİRİŞ YAP</ion-button>
+  <ion-button shape="round.none" expand="block" color="facebook">FACEBOOK İLE GİRİŞ YAP</ion-button>
 
-  <ion-button shape="round" expand="block" color="google" (click)="loginWithGoogle()">GOOGLE İLE GİRİŞ YAP</ion-button>
+  <ion-button shape="round.none" expand="block" color="google" (click)="loginWithGoogle()">GOOGLE İLE GİRİŞ YAP</ion-button>
 
   <div class="spacer-10"></div>
 

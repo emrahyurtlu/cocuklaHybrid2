@@ -19,6 +19,8 @@ import {AngularFireModule} from '@angular/fire';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {LeftnavPageModule} from './leftnav/leftnav.module';
 import {Firebase} from '@ionic-native/firebase/ngx';
+import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
+import {AngularFireStorage} from '@angular/fire/storage';
 
 @NgModule({
     declarations: [
@@ -37,9 +39,11 @@ import {Firebase} from '@ionic-native/firebase/ngx';
         ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production})
     ],
     providers: [
+        AngularFireStorage,
         StatusBar,
         SplashScreen,
         Geolocation,
+        NativeGeocoder,
         GooglePlus,
         Camera,
         Firebase,

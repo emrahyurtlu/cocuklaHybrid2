@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ModalController} from '@ionic/angular';
 import {AppData} from '../app.data';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-leftnav',
@@ -10,7 +11,7 @@ import {AppData} from '../app.data';
 export class LeftnavPage implements OnInit {
     userCanApprove = AppData.user.isAuthorized;
 
-    constructor(public modalController: ModalController) {}
+    constructor(public modalController: ModalController, public router: Router) {}
 
     ngOnInit() {
     }
@@ -18,5 +19,10 @@ export class LeftnavPage implements OnInit {
     async dismiss() {
         console.log('Modal is closing');
         await this.modalController.dismiss();
+    }
+
+    async gotoRoot(root: string) {
+        await this.dismiss();
+        await this.router.navigate([root]);
     }
 }

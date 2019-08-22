@@ -12,25 +12,25 @@
 <ion-content>
     <ion-list>
         <ion-menu-toggle auto-hide="false">
-            <ion-item href="/profile">
+            <ion-item (click)="gotoRoot('profile')">
                 <ion-icon slot="start" name="person"></ion-icon>
                 <ion-label>
                     Profilim
                 </ion-label>
             </ion-item>
-            <ion-item href="/places">
+            <ion-item (click)="gotoRoot('places')">
                 <ion-icon slot="start" name="pin"></ion-icon>
                 <ion-label>
                     Mekanlarım
                 </ion-label>
             </ion-item>
-            <ion-item href="/approvement" *ngIf="userCanApprove">
+            <ion-item (click)="gotoRoot('approvement')" *ngIf="userCanApprove">
                 <ion-icon slot="start" name="checkmark-circle"></ion-icon>
                 <ion-label>
                     Onay Bekleyenler
                 </ion-label>
             </ion-item>
-            <ion-item href="/logout">
+            <ion-item (click)="gotoRoot('logout')">
                 <ion-icon slot="start" name="log-out"></ion-icon>
                 <ion-label>
                     Çıkış
@@ -41,6 +41,6 @@
 </ion-content>
 <ion-footer>
   <ion-toolbar>
-    <ion-button (click)="dismiss()" shape="round" expand="block">Kapat</ion-button>
+    <ion-button (click)="dismiss()" shape="round.none" expand="block">Kapat</ion-button>
   </ion-toolbar>
 </ion-footer>

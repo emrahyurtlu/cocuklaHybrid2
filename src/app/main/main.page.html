@@ -1,17 +1,17 @@
 <ion-header>
     <ion-toolbar>
         <ion-buttons slot="start">
-          <ion-button (click)="showMenu()">
-            <ion-icon icon="menu"></ion-icon>
-          </ion-button>
+            <ion-button (click)="showMenu()">
+                <ion-icon icon="menu"></ion-icon>
+            </ion-button>
         </ion-buttons>
         <ion-title>
-            {{category}}
+            {{category}} - {{dd}}
         </ion-title>
     </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content padding *ngIf="isAuthorized">
     <div>
         <form>
             <ion-searchbar placeholder="Arayın..." showCancelButton="focus" cancelButtonText="İptal"
@@ -21,7 +21,7 @@
     <ion-item>
         <h4>Kategoriler</h4>
     </ion-item>
-    <ion-grid>
+    <ion-grid *ngIf="isAuthorized">
         <ion-row>
             <ion-col>
                 <ion-label (click)="getByCategory('Mekanlar')">

@@ -1,14 +1,14 @@
-import {objectify} from "tslint/lib/utils";
+import {objectify} from 'tslint/lib/utils';
 
 export class PlaceModel {
     public documentID = '';
     public name = '';
     public digest = '';
     public rating = 0;
-    public isFav:boolean;
-    public isApproved:boolean;
-    public isActive:boolean;
-    public isDeleted:boolean;
+    public isFav: boolean;
+    public isApproved: boolean;
+    public isActive: boolean;
+    public isDeleted: boolean;
     public owner = '';
     public category = '';
     public phone = '';
@@ -24,7 +24,7 @@ export class PlaceModel {
     public comments = Array<object>();
     public images = [];
 
-    toObject() {
+    public toObject() {
         return {
             documentID: this.documentID,
             name: this.name,
@@ -50,4 +50,6 @@ export class PlaceModel {
             images: this.images,
         };
     }
+
+
 }
