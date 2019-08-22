@@ -30,10 +30,9 @@ export class AuthService {
             if (tempUser.user.uid !== null) {
                 console.log('User is ok');
                 const user = await this.userService.getUserByEmail(model.email);
-                console.log('User Doc: ', user);
+                console.log('User Doc: ', user.email);
                 if (user.email !== '') {
                     AppData.user = user;
-                    // this.router.navigate(['home/tab1']);
                     await this.alertHelper.dismissLoading();
                     await this.navCtrl.navigateRoot('home');
                 }

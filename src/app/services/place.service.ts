@@ -61,11 +61,13 @@ export class PlaceService {
         try {
             const places: Array<PlaceModel> = new Array<PlaceModel>();
             const result = await this.collection.ref.where('owner', '==', email).get();
-            result.docs.forEach(doc => {
-                const place: PlaceModel = doc.data() as PlaceModel;
-                place.documentID = doc.id;
-                places.push(place);
-            });
+            if (result.docs.length > 0) {
+                result.docs.forEach(doc => {
+                    const place: PlaceModel = doc.data() as PlaceModel;
+                    place.documentID = doc.id;
+                    places.push(place);
+                });
+            }
             return places;
         } catch (e) {
             console.error(e);

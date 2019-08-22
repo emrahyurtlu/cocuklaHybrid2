@@ -25,45 +25,34 @@
       <ion-label position="floating">
         Eposta
       </ion-label>
-      <ion-input type="email" placeholder="{{userModel.email}}" [(ngModel)]="userModel.email" disabled="true"
-                 name="email"></ion-input>
+      <ion-input type="email" placeholder="{{userModel.email}}" disabled="true" name="email"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="floating">
-        İl seçiniz
+        İl
       </ion-label>
-      <ion-select name="city" [(ngModel)]="userModel.city">
-        <ion-select-option value="Ankara">
-          Ankara
-        </ion-select-option>
-        <ion-select-option value="İstanbul">
-          İstanbul
-        </ion-select-option>
-        <ion-select-option value="İzmir">
-          İzmir
+      <ion-select name="city" [(ngModel)]="userModel.city"
+                  (ionChange)="setDistricts(userModel.city)">
+        <ion-select-option *ngFor="let city of cities" value="{{city.city_name}}">
+          {{city.city_name}}
         </ion-select-option>
       </ion-select>
     </ion-item>
     <ion-item>
       <ion-label position="floating">
-        İlçe seçiniz
+        İlçe
       </ion-label>
       <ion-select name="district" [(ngModel)]="userModel.district">
-        <ion-select-option value="Çankaya">
-          Çankaya
-        </ion-select-option>
-        <ion-select-option value="Keçiören">
-          Keçiören
-        </ion-select-option>
-        <ion-select-option value="Gölbaşı">
-          Gölbaşı
+        <ion-select-option *ngFor="let d of districts" value="{{d}}">
+          {{d}}
         </ion-select-option>
       </ion-select>
     </ion-item>
+
     <ion-item>
       <ion-label>Epostama şifre değiştirme linki gönder</ion-label>
-      <ion-checkbox color="primary" checked slot="start" [(ngModel)]="changePassword" name="changePassword"></ion-checkbox>
+      <ion-checkbox color="primary" slot="start" [(ngModel)]="changePassword" name="changePassword" [ngModelOptions]="{standalone: true}"></ion-checkbox>
     </ion-item>
   </form>
   <ion-button shape="round.none" expand="block" (click)="update()">GÜNCELLE</ion-button>
