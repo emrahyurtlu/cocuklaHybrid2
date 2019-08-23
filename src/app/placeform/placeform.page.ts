@@ -9,6 +9,7 @@ import {PropertyModel} from '../models/PropertyModel';
 import {AppData} from '../app.data';
 import {Camera, CameraOptions} from '@ionic-native/camera/ngx';
 import {FileUploadService} from '../services/file-upload.service';
+import {AlertController} from '@ionic/angular';
 
 
 @Component({
@@ -29,7 +30,7 @@ export class PlaceformPage implements OnInit {
     public properties = Array<PropertyModel>();
 
     // tslint:disable-next-line:max-line-length
-    constructor(public formBuilder: FormBuilder, public placeService: PlaceService, public alertHelper: AlertHelper, public route: ActivatedRoute, public camera: Camera, public fileUploadService: FileUploadService) {
+    constructor(public formBuilder: FormBuilder, public placeService: PlaceService, public alertHelper: AlertHelper, public route: ActivatedRoute, public camera: Camera, public fileUploadService: FileUploadService, public alertController: AlertController) {
         this.entity = this.formBuilder.group({
             name: ['', Validators.compose([Validators.required])],
             digest: ['', Validators.compose([Validators.required])],
@@ -192,5 +193,56 @@ export class PlaceformPage implements OnInit {
         } catch (e) {
             console.error('CAMERA ERROR', e);
         }
+    }
+
+    async removeImage(image: string, inStorage: boolean = false) {
+        const rawName = decodeURIComponent(image.replace('https://firebasestorage.googleapis.com/v0/b/cocukla-app.appspot.com/o/', ''));
+        const splitted: string[] = rawName.split('?');
+        const original = splitted[0];
+        console.log(original);
+        const [alert] = await Promise.all([this.alertController.create({
+            header: 'Dikkat',
+            // subHeader: 'Subtitle',
+            message: 'Bu resmi silmek istediğinize emin misiniz?',
+            buttons: [
+                {
+                    text: 'Hayır',
+                    role: 'cancel',
+                    cssClass: 'secondary',
+                    handler: (blah) => {
+                        console.log('İşlem iptal edildi.');
+                    }
+                }, {
+                    text: 'Evet',
+                    handler: () => {
+                        if (inStorage) {
+                            this.fileUploadService.storage.ref(original).delete();
+
+                            const newArr: string[] = new Array<string>();
+                            for (const t of this.placeModel.images) {
+                                if (t !== image) {
+                                    newArr.push(t);
+                                }
+                            }
+                            this.placeModel.images = newArr;
+
+                            this.placeService.updateOnlyImages(this.placeModel);
+                            console.log('Resim silindi.');
+                        } else {
+                            const newArr: string[] = new Array<string>();
+                            for (const t of this.tempPhotos) {
+                                if (t !== image) {
+                                    newArr.push(t);
+                                }
+                            }
+
+                            this.tempPhotos = newArr;
+                        }
+                    }
+                }
+            ]
+        })]);
+
+        await alert.present();
     }
 }

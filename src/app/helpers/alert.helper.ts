@@ -21,7 +21,7 @@ export class AlertHelper {
 
     async success() {
         const toast = await this.toastController.create({
-            header: 'İşlem başarılı',
+            // header: 'İşlem başarılı',
             message: 'İşlem başarıyla tamamlandı.',
             position: 'bottom',
             duration: 3000
@@ -31,7 +31,7 @@ export class AlertHelper {
 
     async error() {
         const toast = await this.toastController.create({
-            header: 'Dikkat',
+            // header: 'Dikkat',
             message: 'İşlem sırasında bir hata oluştu.',
             position: 'bottom',
             duration: 3000

@@ -249,4 +249,8 @@ export class PlaceService {
             console.error(e);
         }
     }
+
+    async updateOnlyImages(model: PlaceModel) {
+        this.collection.doc(model.documentID).update({images: model.images});
+    }
 }

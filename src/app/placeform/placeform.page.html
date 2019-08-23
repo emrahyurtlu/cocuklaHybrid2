@@ -57,10 +57,13 @@
 
     <ion-grid *ngIf="tempPhotos.length > 0">
       <ion-label>Seçilenler</ion-label>
+      <div>
+        <ion-text color="warning">Silmek için resmin üstüne tıklayınız.</ion-text>
+      </div>
       <ion-row>
         <ion-col *ngFor="let image of tempPhotos">
           <ion-avatar>
-            <ion-img src="{{image}}" class="my-image"></ion-img>
+            <ion-img src="{{image}}" class="my-image" (click)="removeImage(image)"></ion-img>
           </ion-avatar>
         </ion-col>
       </ion-row>
@@ -68,10 +71,13 @@
 
     <ion-grid *ngIf="placeModel.images.length > 0">
       <ion-label>Yüklü olanlar</ion-label>
+      <div>
+        <ion-text color="warning">Silmek için resmin üstüne tıklayınız.</ion-text>
+      </div>
       <ion-row>
         <ion-col *ngFor="let image of placeModel.images">
           <ion-avatar>
-            <ion-img src="{{image}}" class="my-image"></ion-img>
+            <ion-img src="{{image}}" class="my-image" (click)="removeImage(image, true)"></ion-img>
           </ion-avatar>
         </ion-col>
       </ion-row>
