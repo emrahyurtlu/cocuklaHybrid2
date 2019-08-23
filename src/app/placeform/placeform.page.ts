@@ -95,6 +95,7 @@ export class PlaceformPage implements OnInit {
 
         this.placeModel.properties = this.selectedProperties;
         this.placeModel.updateDate = Date.now();
+        this.placeModel.isApproved = false;
 
         if (this.documentID !== '0') {
             result = await this.placeService.update(this.documentID, this.placeModel);
@@ -102,7 +103,6 @@ export class PlaceformPage implements OnInit {
             this.placeModel.insertDate = Date.now();
             this.placeModel.updateDate = Date.now();
             this.placeModel.owner = AppData.user.email;
-            this.placeModel.isActive = false;
             this.placeModel.isApproved = false;
             this.placeModel.isDeleted = false;
             this.placeModel.isFav = false;

@@ -13,7 +13,8 @@ const routes: Routes = [
     {path: 'profile', loadChildren: './profile/profile.module#ProfilePageModule'},
     {path: 'subscribe', loadChildren: './subscribe/subscribe.module#SubscribePageModule'},
     {path: 'test', loadChildren: './test/test.module#TestPageModule'},
-  { path: 'explore', loadChildren: './explore/explore.module#ExplorePageModule' }
+    {path: 'explore', loadChildren: './explore/explore.module#ExplorePageModule'},
+    {path: 'pending-content', loadChildren: './pending-content/pending-content.module#PendingContentPageModule'}
 ];
 
 @NgModule({

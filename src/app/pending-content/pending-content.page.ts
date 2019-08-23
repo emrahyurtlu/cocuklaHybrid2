@@ -3,18 +3,17 @@ import {PlaceModel} from '../models/PlaceModel';
 import {Router} from '@angular/router';
 import {PlaceService} from '../services/place.service';
 import {UserService} from '../services/user.service';
-import {AppData} from '../app.data';
 import {AlertHelper} from '../helpers/alert.helper';
 import {FileUploadService} from '../services/file-upload.service';
+import {AppData} from '../app.data';
 
 @Component({
-    selector: 'app-places',
-    templateUrl: './places.page.html',
-    styleUrls: ['./places.page.scss'],
+    selector: 'app-pending-content',
+    templateUrl: './pending-content.page.html',
+    styleUrls: ['./pending-content.page.scss'],
 })
-export class PlacesPage implements OnInit {
+export class PendingContentPage implements OnInit {
     public places: Array<PlaceModel> = new Array<PlaceModel>();
-    userCanApprove = AppData.user.isAuthorized;
 
     // tslint:disable-next-line:max-line-length
     constructor(public router: Router, public  placeService: PlaceService, public userService: UserService, public alertHelper: AlertHelper, public fileService: FileUploadService) {
@@ -52,13 +51,7 @@ export class PlacesPage implements OnInit {
     }
 
     async getMyPlaces() {
-        this.places = await this.placeService.getMyPlaces(AppData.user.email);
-        console.log('User places: ', this.places[0].name);
-    }
-
-    async refresh(event) {
-        this.places = await this.placeService.getMyPlaces(AppData.user.email);
-        console.log('User places: ', this.places[0].name);
-        event.target.complete();
+        this.places = await this.placeService.pendingContent();
+        console.log('Pending content: ', this.places[0].name);
     }
 }

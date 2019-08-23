@@ -63,6 +63,48 @@ export class PlaceService {
             console.log('Places owner is: ', email);
             const places: Array<PlaceModel> = new Array<PlaceModel>();
             const result = await this.collection.ref.where('owner', '==', email).get();
+
+            if (result.docs.length > 0) {
+                result.docs.forEach(doc => {
+                    const place: PlaceModel = new PlaceModel();
+                    place.documentID = doc.id;
+                    place.name = doc.data().name;
+                    place.digest = doc.data().digest;
+                    place.category = doc.data().category;
+
+                    place.properties = doc.data().properties;
+                    place.images = doc.data().images;
+                    place.comments = doc.data().comments;
+
+                    place.owner = doc.data().owner;
+                    place.phone = doc.data().phone;
+                    place.email = doc.data().email;
+                    place.address = doc.data().address;
+                    place.city = doc.data().city;
+                    place.district = doc.data().district;
+                    place.position = doc.data().position;
+                    place.rating = doc.data().rating;
+                    place.isFav = doc.data().isFav;
+                    place.isApproved = doc.data().isApproved;
+                    place.isActive = doc.data().isActive;
+                    place.isDeleted = doc.data().isDeleted;
+                    place.insertDate = doc.data().insertDate;
+                    place.updateDate = doc.data().updateDate;
+                    console.log('User Place Obj: ', place);
+                    places.push(place);
+                });
+            }
+
+            return places;
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    async pendingContent() {
+        try {
+            const places: Array<PlaceModel> = new Array<PlaceModel>();
+            const result = await this.collection.ref.where('isApproved', '==', false).get();
             // const result = await this.fireStore.collection<PlaceModel>(this.collectionName).ref.where('owner', '==', email).get();
 
             if (result.docs.length > 0) {

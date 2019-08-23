@@ -12,6 +12,13 @@
 </ion-header>
 
 <ion-content padding *ngIf="isAuthorized">
+    <ion-refresher (ionRefresh)="refresh($event)">
+        <ion-refresher-content
+                pullingIcon="arrow-dropdown"
+                refreshingSpinner="circles"
+                refreshingText="Lütfen bekleyiniz...">
+        </ion-refresher-content>
+    </ion-refresher>
     <div>
         <form>
             <ion-searchbar placeholder="Arayın..." showCancelButton="focus" cancelButtonText="İptal"

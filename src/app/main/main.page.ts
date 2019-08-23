@@ -90,9 +90,9 @@ export class MainPage implements OnInit {
 
     async getToken() {
         this.platform.ready().then(value => {
-           console.log('Platform Ready: ', value);
-           this.firebase.grantPermission();
-           this.firebase.getToken()
+            console.log('Platform Ready: ', value);
+            this.firebase.grantPermission();
+            this.firebase.getToken()
                 .then(token => console.log(`The token is ${token}`))
                 .catch(error => console.error('Error getting token', error));
         });
@@ -104,5 +104,10 @@ export class MainPage implements OnInit {
         this.firebase.onTokenRefresh()
             .subscribe((token: string) => console.log(`Got a new token ${token}`));*/
 
+    }
+
+    async refresh(event) {
+        await this.getByCategory(this.category);
+        event.target.complete();
     }
 }
