@@ -62,6 +62,7 @@ export class AuthService {
 
     async logout() {
         try {
+            console.log('wanna logout first!');
             await this.afAuth.auth.signOut();
             if (this.platform.is('cordova')) {
                 this.gplus.logout();

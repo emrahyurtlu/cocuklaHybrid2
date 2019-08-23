@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import {AngularFirestore, AngularFirestoreCollection} from "@angular/fire/firestore";
-import {CityModel} from "../models/CityModel";
+import {AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firestore';
+import {CityModel} from '../models/CityModel';
 
 @Injectable({
     providedIn: 'root'
@@ -15,11 +15,11 @@ export class CityService {
 
     async getList(): Promise<Array<CityModel>> {
         try {
-            let models: Array<CityModel> = new Array<CityModel>();
+            const models: Array<CityModel> = new Array<CityModel>();
             const result = await this.collection.ref.orderBy('plate').get();
             console.log('cities', result);
             result.docs.forEach(doc => {
-                let place: CityModel = doc.data() as CityModel;
+                const place: CityModel = doc.data() as CityModel;
                 models.push(place);
             });
             return models;
@@ -33,8 +33,9 @@ export class CityService {
             console.log(name);
             const cities = await this.getList();
             let result = [];
-            for (let city of cities) {
-                if (city.city_name == name) {
+            // tslint:disable-next-line:no-shadowed-variable
+            for (const city of cities) {
+                if (city.city_name === name) {
                     result = city.districts;
                     break;
                 }

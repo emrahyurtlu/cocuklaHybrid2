@@ -15,7 +15,7 @@ export class CacheService {
         try {
             await this.cityService.getList().then((result) => {
                 AppData.cities = result;
-            })
+            });
         } catch (e) {
             console.error(e);
         }
@@ -25,7 +25,7 @@ export class CacheService {
         try {
             await this.propertyService.getList().then((result) => {
                 AppData.properties = result;
-            })
+            });
         } catch (e) {
             console.error(e);
         }

@@ -20,13 +20,14 @@ export class PlacesPage implements OnInit {
         console.log('ACTIVE USER: ', AppData.user);
     }
 
-    async ngOnInit() {
-        await this.getMyPlaces();
+    ngOnInit() {
+        this.getMyPlaces().then(r => {
+        });
     }
 
     async gotoPlaceForm() {
         console.log('wanna go to placeform!');
-        await this.router.navigate(['placeform']);
+        await this.router.navigate(['placeform', {documentID: '0'}]);
     }
 
     async favorite(documentID: string) {
@@ -49,12 +50,8 @@ export class PlacesPage implements OnInit {
         }
     }
 
-    async getUrl(name: string) {
-        return await this.fileService.getDownloadUrl(name);
-    }
-
     async getMyPlaces() {
         this.places = await this.placeService.getMyPlaces(AppData.user.email);
-        console.log(this.places);
+        console.log('User places: ', this.places[0].name);
     }
 }

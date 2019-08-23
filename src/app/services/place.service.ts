@@ -29,6 +29,7 @@ export class PlaceService {
     async getByCategory(category: string) {
         try {
             const places: Array<PlaceModel> = new Array<PlaceModel>();
+            // tslint:disable-next-line:max-line-length
             const result = await this.collection.ref.where('category', '==', category).where('isApproved', '==', true).where('isDeleted', '==', false).get();
             result.docs.forEach(doc => {
                 const place: PlaceModel = doc.data() as PlaceModel;
@@ -43,7 +44,7 @@ export class PlaceService {
 
     async getByCity(city: string) {
         try {
-            let places: Array<PlaceModel> = new Array<PlaceModel>();
+            const places: Array<PlaceModel> = new Array<PlaceModel>();
             // tslint:disable-next-line:max-line-length
             const result = await this.collection.ref.where('city', '==', city).where('isApproved', '==', true).where('isDeleted', '==', false).get();
             result.docs.forEach(doc => {
@@ -59,15 +60,42 @@ export class PlaceService {
 
     async getMyPlaces(email: string) {
         try {
+            console.log('Places owner is: ', email);
             const places: Array<PlaceModel> = new Array<PlaceModel>();
             const result = await this.collection.ref.where('owner', '==', email).get();
+            // const result = await this.fireStore.collection<PlaceModel>(this.collectionName).ref.where('owner', '==', email).get();
+
             if (result.docs.length > 0) {
                 result.docs.forEach(doc => {
-                    const place: PlaceModel = doc.data() as PlaceModel;
+                    const place: PlaceModel = new PlaceModel();
                     place.documentID = doc.id;
+                    place.name = doc.data().name;
+                    place.digest = doc.data().digest;
+                    place.category = doc.data().category;
+
+                    place.properties = doc.data().properties;
+                    place.images = doc.data().images;
+                    place.comments = doc.data().comments;
+
+                    place.owner = doc.data().owner;
+                    place.phone = doc.data().phone;
+                    place.email = doc.data().email;
+                    place.address = doc.data().address;
+                    place.city = doc.data().city;
+                    place.district = doc.data().district;
+                    place.position = doc.data().position;
+                    place.rating = doc.data().rating;
+                    place.isFav = doc.data().isFav;
+                    place.isApproved = doc.data().isApproved;
+                    place.isActive = doc.data().isActive;
+                    place.isDeleted = doc.data().isDeleted;
+                    place.insertDate = doc.data().insertDate;
+                    place.updateDate = doc.data().updateDate;
+                    console.log('User Place Obj: ', place);
                     places.push(place);
                 });
             }
+
             return places;
         } catch (e) {
             console.error(e);

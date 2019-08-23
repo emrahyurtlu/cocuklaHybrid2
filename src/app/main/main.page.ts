@@ -5,7 +5,7 @@ import {AppData} from '../app.data';
 import {AlertHelper} from '../helpers/alert.helper';
 import {PlaceService} from '../services/place.service';
 import {PlaceModel} from '../models/PlaceModel';
-import {ModalController} from '@ionic/angular';
+import {ModalController, Platform} from '@ionic/angular';
 import {LeftnavPage} from '../leftnav/leftnav.page';
 import {Firebase} from '@ionic-native/firebase/ngx';
 
@@ -18,15 +18,15 @@ export class MainPage implements OnInit {
     public category = 'Mekanlar';
     public places: Array<PlaceModel>;
     isAuthorized = AppData.user !== null;
-    public dd = AppData.dd;
 
     // tslint:disable-next-line:max-line-length
-    constructor(public router: Router, public userService: UserService, public alertHelper: AlertHelper, public placeService: PlaceService, public modalCtrl: ModalController, private firebase: Firebase) {
-        this.getByCategory(this.category);
-        this.getToken();
+    constructor(public router: Router, public userService: UserService, public alertHelper: AlertHelper, public placeService: PlaceService, public modalCtrl: ModalController, private firebase: Firebase, public platform: Platform) {
+
     }
 
     ngOnInit() {
+        this.getByCategory(this.category).then();
+        this.getToken().then();
     }
 
     async favorite(documentID: string) {
@@ -89,16 +89,20 @@ export class MainPage implements OnInit {
     }
 
     async getToken() {
-        await this.firebase.grantPermission();
-        this.firebase.getToken()
-            .then(token => console.log(`The token is ${token}`))
-            .catch(error => console.error('Error getting token', error));
+        this.platform.ready().then(value => {
+           console.log('Platform Ready: ', value);
+           this.firebase.grantPermission();
+           this.firebase.getToken()
+                .then(token => console.log(`The token is ${token}`))
+                .catch(error => console.error('Error getting token', error));
+        });
 
-        this.firebase.onNotificationOpen()
+
+        /*this.firebase.onNotificationOpen()
             .subscribe(data => console.log(`User opened a notification ${data}`));
 
         this.firebase.onTokenRefresh()
-            .subscribe((token: string) => console.log(`Got a new token ${token}`));
+            .subscribe((token: string) => console.log(`Got a new token ${token}`));*/
 
     }
 }

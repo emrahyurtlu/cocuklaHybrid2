@@ -1,5 +1,3 @@
-import {objectify} from 'tslint/lib/utils';
-
 export class PlaceModel {
     public documentID = '';
     public name = '';
@@ -50,6 +48,4 @@ export class PlaceModel {
             images: this.images,
         };
     }
-
-
 }

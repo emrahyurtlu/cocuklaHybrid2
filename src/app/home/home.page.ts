@@ -12,7 +12,7 @@ export class HomePage {
     constructor(public router: Router) {
         try {
             if (AppData.user == null) {
-                this.router.navigate(['/login']).then(r => console.log('Unauthorized access: routing to login page.'));
+                this.router.navigate(['login']).then(r => console.log('Unauthorized access: routing to login page.'));
             }
         } catch (e) {
             console.log(e);
@@ -22,7 +22,7 @@ export class HomePage {
     ionViewDidLoad() {
         try {
             if (AppData.user == null) {
-                this.router.navigate(['/login']).then(r => console.log('Unauthorized access: routing to login page.'));
+                this.router.navigate(['login']).then(r => console.log('Unauthorized access: routing to login page.'));
             }
         } catch (e) {
             console.log(e);

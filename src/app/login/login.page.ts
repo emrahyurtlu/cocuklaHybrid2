@@ -34,6 +34,8 @@ export class LoginPage implements OnInit {
         locationModel.district = this.route.snapshot.paramMap.get('dist');*/
         // console.log(locationModel);
         // this.getGeolocation();
+        this.authService.logout().then(value => {
+        });
 
     }
 
