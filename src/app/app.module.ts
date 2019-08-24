@@ -18,8 +18,8 @@ import {Camera} from '@ionic-native/camera/ngx';
 import {AngularFireModule} from '@angular/fire';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {LeftnavPageModule} from './leftnav/leftnav.module';
-import {Firebase} from '@ionic-native/firebase/ngx';
-import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
+// import {Firebase} from '@ionic-native/firebase/ngx';
+import {NativeGeocoder} from '@ionic-native/native-geocoder/ngx';
 import {AngularFireStorage} from '@angular/fire/storage';
 
 @NgModule({
@@ -46,7 +46,7 @@ import {AngularFireStorage} from '@angular/fire/storage';
         NativeGeocoder,
         GooglePlus,
         Camera,
-        Firebase,
+        // Firebase,
         {provide: RouteReuseStrategy, useClass: IonicRouteStrategy}
     ],
     exports: [],

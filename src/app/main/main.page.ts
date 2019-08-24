@@ -7,7 +7,7 @@ import {PlaceService} from '../services/place.service';
 import {PlaceModel} from '../models/PlaceModel';
 import {ModalController, Platform} from '@ionic/angular';
 import {LeftnavPage} from '../leftnav/leftnav.page';
-import {Firebase} from '@ionic-native/firebase/ngx';
+import {AngularFireMessaging} from '@angular/fire/messaging';
 
 @Component({
     selector: 'app-main',
@@ -20,7 +20,7 @@ export class MainPage implements OnInit {
     isAuthorized = AppData.user !== null;
 
     // tslint:disable-next-line:max-line-length
-    constructor(public router: Router, public userService: UserService, public alertHelper: AlertHelper, public placeService: PlaceService, public modalCtrl: ModalController, private firebase: Firebase, public platform: Platform) {
+    constructor(public router: Router, public userService: UserService, public alertHelper: AlertHelper, public placeService: PlaceService, public modalCtrl: ModalController, public platform: Platform, public messaging: AngularFireMessaging) {
 
     }
 
@@ -91,10 +91,18 @@ export class MainPage implements OnInit {
     async getToken() {
         this.platform.ready().then(value => {
             console.log('Platform Ready: ', value);
-            this.firebase.grantPermission();
+            if (this.platform.is('ios')) {
+                this.messaging.requestPermission.subscribe(data => {
+                    console.log(data);
+                });
+            }
+            this.messaging.getToken.subscribe(data => {
+                console.log(`The token is ${data}`);
+            });
+            /*this.firebase.grantPermission();
             this.firebase.getToken()
                 .then(token => console.log(`The token is ${token}`))
-                .catch(error => console.error('Error getting token', error));
+                .catch(error => console.error('Error getting token', error));*/
         });
 
 

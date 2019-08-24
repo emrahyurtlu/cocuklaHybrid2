@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {Firebase} from '@ionic-native/firebase/ngx';
 import {AlertHelper} from '../helpers/alert.helper';
 
 @Component({
