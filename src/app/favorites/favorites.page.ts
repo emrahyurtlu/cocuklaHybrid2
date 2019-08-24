@@ -14,8 +14,8 @@ import {ModalController} from '@ionic/angular';
 })
 export class FavoritesPage implements OnInit {
     items: Array<PlaceModel>;
-    public myTitle: any = 'Favorilerim Sayfası';
 
+    // tslint:disable-next-line:max-line-length
     constructor(public userService: UserService, public alertHelper: AlertHelper, public router: Router, public modalCtrl: ModalController) {
         this.userService.getUserFavorites().then(result => this.items = result);
         console.log(this.items);
@@ -52,5 +52,10 @@ export class FavoritesPage implements OnInit {
             component: LeftnavPage,
         });
         await modal.present();
+    }
+
+    async refresh(event) {
+        this.userService.getUserFavorites().then(result => this.items = result);
+        event.target.complete();
     }
 }

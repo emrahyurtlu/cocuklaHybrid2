@@ -11,6 +11,14 @@
   </ion-toolbar>
 </ion-header>
 <ion-content padding>
+  <ion-refresher (ionRefresh)="refresh($event)">
+    <ion-refresher-content
+            pullingIcon="arrow-dropdown"
+            refreshingSpinner="circles"
+            refreshingText="Lütfen bekleyiniz...">
+    </ion-refresher-content>
+  </ion-refresher>
+
   <ion-card *ngFor="let item of items">
     <img src="{{item.images[0]}}}" alt="{{item.name}}" (click)="gotoDetail(item.documentID)"/>
     <ion-card-header>

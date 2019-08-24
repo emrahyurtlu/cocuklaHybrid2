@@ -86,20 +86,20 @@ export class AuthService {
         }
     }
 
-    googleLogin() {
+    async googleLogin() {
         if (this.platform.is('cordova')) {
-            this.nativeGoogleLogin();
+            await this.nativeGoogleLogin();
         } else {
-            this.webGoogleLogin();
+            await this.webGoogleLogin();
         }
     }
 
-    public async nativeGoogleLogin(): Promise<firebase.auth.UserCredential> {
+    async nativeGoogleLogin(): Promise<firebase.auth.UserCredential> {
         try {
             const gplusUser = await this.gplus.login({
                 webClientId: '97541673682-blaqcb75q8sgnpoocjve9ucraeaod2km.apps.googleusercontent.com',
                 offline: true,
-                // scopes: 'email profile openid'
+                scopes: 'email profile'
             });
 
             return await this.afAuth.auth.signInWithCredential(
@@ -123,9 +123,5 @@ export class AuthService {
         } catch (e) {
             console.error(e);
         }
-    }
-
-    async getMessagingToken() {
-
     }
 }

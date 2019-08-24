@@ -7,7 +7,7 @@ import {CacheService} from '../services/cache.service';
 import {Geolocation} from '@ionic-native/geolocation/ngx';
 import {AppData} from '../app.data';
 import {LocationModel} from '../models/LocationModel';
-import {NativeGeocoder, NativeGeocoderResult, NativeGeocoderOptions} from '@ionic-native/native-geocoder/ngx';
+import {NativeGeocoder, NativeGeocoderOptions, NativeGeocoderResult} from '@ionic-native/native-geocoder/ngx';
 
 
 @Component({
@@ -22,21 +22,15 @@ export class LoginPage implements OnInit {
 
     // tslint:disable-next-line:max-line-length
     constructor(public authService: AuthService, public router: Router, public cacheService: CacheService, public geolocation: Geolocation, public nativeGeocoder: NativeGeocoder) {
-        this.cacheService.cacheProperties();
-        this.cacheService.cacheCities();
+        this.cacheService.cacheProperties().then(r => {
+        });
+        this.cacheService.cacheCities().then(r => {
+        });
     }
 
     ngOnInit() {
-        /*let locationModel = new LocationModel();
-        locationModel.latitude = this.route.snapshot.paramMap.get('lat');
-        locationModel.longitude = this.route.snapshot.paramMap.get('long');
-        locationModel.city = this.route.snapshot.paramMap.get('city');
-        locationModel.district = this.route.snapshot.paramMap.get('dist');*/
-        // console.log(locationModel);
-        // this.getGeolocation();
         this.authService.logout().then(value => {
         });
-
     }
 
     goToForgetPassword() {
@@ -47,14 +41,14 @@ export class LoginPage implements OnInit {
         this.router.navigate(['subscribe']);
     }
 
-    login() {
+    async login() {
         console.log(this.userModel);
         this.getGeolocation();
-        this.authService.login(this.userModel);
+        await this.authService.login(this.userModel);
     }
 
-    loginWithGoogle() {
-        this.getGeolocation();
+    async loginWithGoogle() {
+        await this.getGeolocation();
         this.authService.googleLogin();
     }
 
@@ -80,9 +74,9 @@ export class LoginPage implements OnInit {
             const result: NativeGeocoderResult[] = await this.nativeGeocoder.reverseGeocode(latitude, longitude, options);
             const detail = result[0];
 
-            AppData.dd = JSON.stringify(detail);
             AppData.location.city = detail.administrativeArea;
             AppData.location.district = detail.subAdministrativeArea;
+
             console.log(JSON.stringify(result[0]));
 
         } catch (e) {
