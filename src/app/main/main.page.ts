@@ -7,7 +7,6 @@ import {PlaceService} from '../services/place.service';
 import {PlaceModel} from '../models/PlaceModel';
 import {ModalController} from '@ionic/angular';
 import {LeftnavPage} from '../leftnav/leftnav.page';
-import {MessagingService} from '../services/messaging.service';
 
 @Component({
     selector: 'app-main',
@@ -20,9 +19,8 @@ export class MainPage implements OnInit {
     isAuthorized = AppData.user !== null;
 
     // tslint:disable-next-line:max-line-length
-    constructor(public router: Router, public userService: UserService, public alertHelper: AlertHelper, public placeService: PlaceService, public modalCtrl: ModalController, public messagingService: MessagingService) {
-        this.messagingService.getToken().then(value => {
-        });
+    constructor(public router: Router, public userService: UserService, public alertHelper: AlertHelper, public placeService: PlaceService, public modalCtrl: ModalController) {
+
     }
 
     ngOnInit() {
@@ -34,7 +32,7 @@ export class MainPage implements OnInit {
             console.log(documentID + ' wanna add fav');
             const result = await this.userService.favorite(documentID, AppData.user.email);
             const message = result ? 'Favorilerden kaldırıldı.' : 'Favorilere ekledi';
-            await this.alertHelper.toastMessage('İşlem başarılı', message);
+            await this.alertHelper.toastMessage(message);
         } catch (e) {
             console.log(e);
         }

@@ -1,30 +1,35 @@
 import {Injectable} from '@angular/core';
-import {AngularFireMessaging} from '@angular/fire/messaging';
 import {Platform} from '@ionic/angular';
 import {UserService} from './user.service';
+import { Firebase } from '@ionic-native/firebase/ngx';
 
 @Injectable({
     providedIn: 'root'
 })
 export class MessagingService {
 
-    constructor(public platform: Platform, public messaging: AngularFireMessaging, public userService: UserService) {
+    constructor(public platform: Platform, public userService: UserService, private firebase: Firebase) {
     }
 
-    async getToken() {
-        this.platform.ready().then(value => {
-            console.log('Platform Ready: ', value);
+    async setToken() {
+        try {
             if (this.platform.is('ios')) {
-                this.messaging.requestPermission.subscribe(data => {
-                    console.log(data);
-                });
+                await this.firebase.grantPermission();
             }
-            this.messaging.getToken.subscribe(data => {
-                if (data) {
-                    this.userService.updateMessagingTokens(data);
-                }
-                console.log(`The token is ${data}`);
-            });
-        });
+
+            this.firebase.getToken()
+                .then(token => {
+                    this.userService.updateMessagingTokens(token);
+                    console.log(`The token is ${token}`);
+                });
+
+            this.firebase.onNotificationOpen()
+                .subscribe(data => console.log(`User opened a notification ${data}`));
+
+            this.firebase.onTokenRefresh()
+                .subscribe((token: string) => console.log(`Got a new token ${token}`));
+        } catch (e) {
+            console.log(e);
+        }
     }
 }

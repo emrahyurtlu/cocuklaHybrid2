@@ -5,7 +5,6 @@ import {AlertHelper} from '../helpers/alert.helper';
 import {AuthService} from '../services/auth.service';
 import {UserService} from '../services/user.service';
 import {CityModel} from '../models/CityModel';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
     selector: 'app-profile',
@@ -39,7 +38,7 @@ export class ProfilePage implements OnInit {
 
         await this.userService.update(this.userModel);
         AppData.user = this.userModel;
-        await this.alertHelper.toastMessage('İşlem Başarılı', 'Profiliniz güncellendi');
+        await this.alertHelper.toastMessage('Profiliniz güncellendi');
     }
 
     async setDistricts(name: any) {

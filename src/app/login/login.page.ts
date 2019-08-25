@@ -49,7 +49,7 @@ export class LoginPage implements OnInit {
 
     async loginWithGoogle() {
         await this.getGeolocation();
-        this.authService.googleLogin();
+        await this.authService.googleLogin();
     }
 
     async getGeolocation() {

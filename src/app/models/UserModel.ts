@@ -4,10 +4,12 @@ export class UserModel {
     public password: string;
     public city: string;
     public district: string;
-    public favorites: Array<string> = [];
-    public messagingTokens: Array<string> = [];
+    public favorites = [];
+    public messagingTokens = [];
     public isAuthorized: boolean;
     public loginType: number;
+    public insert: number;
+    public update: number;
 
     toObject(): object {
         return {
@@ -20,6 +22,8 @@ export class UserModel {
             messagingTokens: this.messagingTokens,
             isAuthorized: this.isAuthorized,
             loginType: this.loginType,
+            insert: this.insert,
+            update: this.update,
         };
     }
 }

@@ -42,19 +42,19 @@ export class AuthService {
             console.error(e.code);
             switch (e.code) {
                 case 'auth/user-not-found':
-                    this.alertHelper.toastMessage('Dikkat', 'Kullanıcı bulunamadı.');
+                    this.alertHelper.toastMessage('Kullanıcı bulunamadı.');
                     break;
                 case 'auth/invalid-email':
-                    this.alertHelper.toastMessage('Dikkat', 'Girdiğiniz eposta geçerli değil.');
+                    this.alertHelper.toastMessage('Girdiğiniz eposta geçerli değil.');
                     break;
                 case 'auth/wrong-password':
-                    this.alertHelper.toastMessage('Dikkat', 'Girdiğiniz şifre yanlış. Şifreniz en az 6 karakterden oluşmalıdır.');
+                    this.alertHelper.toastMessage('Girdiğiniz şifre yanlış. Şifreniz en az 6 karakterden oluşmalıdır.');
                     break;
                 case 'auth/user-disabled':
-                    this.alertHelper.toastMessage('Dikkat', 'Bu kullanıcı pasif yapılmış. Sisteme giriş yapamazsınız.');
+                    this.alertHelper.toastMessage('Bu kullanıcı pasif yapılmış. Sisteme giriş yapamazsınız.');
                     break;
                 default:
-                    this.alertHelper.toastMessage('Dikkat', 'Lütfen kullanıcı adı ve şifre giriniz.');
+                    this.alertHelper.toastMessage('Lütfen kullanıcı adı ve şifre giriniz.');
                     break;
             }
         }
@@ -80,7 +80,7 @@ export class AuthService {
     async createUser(model: UserModel) {
         try {
             const result = await this.afAuth.auth.createUserWithEmailAndPassword(model.email, model.password);
-            return result != null;
+            return result.user != null;
         } catch (e) {
             console.error(e);
         }
@@ -94,7 +94,7 @@ export class AuthService {
         }
     }
 
-    async nativeGoogleLogin(): Promise<firebase.auth.UserCredential> {
+    async nativeGoogleLogin() {
         try {
             const gplusUser = await this.gplus.login({
                 webClientId: '97541673682-blaqcb75q8sgnpoocjve9ucraeaod2km.apps.googleusercontent.com',
@@ -102,9 +102,13 @@ export class AuthService {
                 scopes: 'email profile'
             });
 
-            return await this.afAuth.auth.signInWithCredential(
+            const result = await this.afAuth.auth.signInWithCredential(
                 firebase.auth.GoogleAuthProvider.credential(gplusUser.idToken)
             );
+            const userModel = new UserModel();
+            userModel.name = result.user.displayName;
+            userModel.email = result.user.email;
+            AppData.user = userModel;
         } catch (e) {
             console.error(e);
         }
@@ -118,7 +122,7 @@ export class AuthService {
             if (credential.user.email !== null) {
                 AppData.user = await this.userService.getUserByEmail(credential.user.email);
                 console.log(AppData.user);
-                this.router.navigate(['home']);
+                await this.router.navigate(['home']);
             }
         } catch (e) {
             console.error(e);

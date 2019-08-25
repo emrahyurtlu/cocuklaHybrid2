@@ -9,9 +9,9 @@ export class AlertHelper {
 
     }
 
-    async toastMessage(title: string, msg: string) {
+    async toastMessage(msg: string) {
         const toast = await this.toastController.create({
-            header: title,
+            // header: title,
             message: msg,
             position: 'bottom',
             duration: 3000

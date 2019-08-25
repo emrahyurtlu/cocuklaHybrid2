@@ -20,11 +20,24 @@ export class UserService {
 
     async insert(model: UserModel): Promise<any> {
         try {
-            const result = await this.userCollection.doc(model.email).set(model.toObject());
+            const result = await this.userCollection.doc(model.email).set({
+                name: model.name,
+                email: model.email,
+                password: model.password,
+                city: model.city,
+                district: model.district,
+                favorites: model.favorites,
+                messagingTokens: model.messagingTokens,
+                isAuthorized: model.isAuthorized,
+                loginType: model.loginType,
+                insert: model.insert,
+                update: model.update,
+            });
             console.log('ServiceFile', result);
-            return false;
+            return true;
         } catch (e) {
             console.error(e);
+            return false;
         }
     }
 
@@ -118,9 +131,22 @@ export class UserService {
     }
 
     async updateMessagingTokens(token: string) {
-        if (!AppData.user.messagingTokens.includes(token)) {
-            AppData.user.messagingTokens.push(token);
+        try {
+
+            AppData.user.messagingTokens.push('mytoken');
+
             this.userCollection.doc(AppData.user.email).update({messagingTokens: AppData.user.messagingTokens});
+
+            /*if (AppData.user.messagingTokens.length === 0) {
+                AppData.user.messagingTokens.push(token);
+            }*/
+
+            /*if (!AppData.user.messagingTokens.includes(token)) {
+                AppData.user.messagingTokens.push(token);
+                this.userCollection.doc(AppData.user.email).update({messagingTokens: AppData.user.messagingTokens});
+            }*/
+        } catch (e) {
+            console.error(e);
         }
     }
 }

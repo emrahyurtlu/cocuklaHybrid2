@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {Router} from '@angular/router';
 import {AppData} from '../app.data';
+import {MessagingService} from '../services/messaging.service';
 
 @Component({
     selector: 'app-tabs',
@@ -14,6 +15,7 @@ export class HomePage {
             if (AppData.user == null) {
                 this.router.navigate(['login']).then(r => console.log('Unauthorized access: routing to login page.'));
             }
+            // this.messagingService.setToken().then(value => console.log('Token taken.'));
         } catch (e) {
             console.log(e);
         }

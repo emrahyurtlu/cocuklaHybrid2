@@ -36,7 +36,7 @@ export class PlacesPage implements OnInit {
             console.log(documentID + ' wanna add fav');
             const result = await this.userService.favorite(documentID, AppData.user.email);
             const message = result ? 'Favorilerden kaldırıldı.' : 'Favorilere ekledi';
-            await this.alertHelper.toastMessage('İşlem başarılı', message);
+            await this.alertHelper.toastMessage(message);
         } catch (e) {
             console.log(e);
         }

@@ -20,7 +20,7 @@ export class ForgetpasswordPage implements OnInit {
   async sendPasswordResetLink() {
     if (this.userModel.email !== '') {
       await this.auth.passwordReset(this.userModel.email);
-      await this.alertHelper.toastMessage('İşlem başarılı', 'Belirttiğiniz eposta adresine şifre sıfırlama linki gönderildi.');
+      await this.alertHelper.toastMessage('Belirttiğiniz eposta adresine şifre sıfırlama linki gönderildi.');
     }
   }
 }
