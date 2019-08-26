@@ -8,7 +8,7 @@ import {LocationModel} from '../models/LocationModel';
 })
 export class LocationService {
 
-    constructor(public geolocation: Geolocation, public nativeGeocoder: NativeGeocoder) {
+    constructor(private geolocation: Geolocation, private nativeGeocoder: NativeGeocoder) {
 
     }
 

@@ -100,17 +100,22 @@ export class AuthService {
 
             const providerData = result.user.providerData[0];
 
-            const location = await this.locationService.getCurrentPosition();
 
-            const user = new UserModel();
+            let user = new UserModel();
             user.uid = providerData.uid;
-            user.displayName = providerData.displayName;
-            user.email = providerData.email;
-            user.photoURL = providerData.photoURL;
-            user.phoneNumber = providerData.phoneNumber;
-            user.location = location;
+
 
             if (user.uid !== null) {
+                const location = await this.locationService.getCurrentPosition();
+
+                user.displayName = providerData.displayName;
+                user.email = providerData.email;
+                user.photoURL = providerData.photoURL;
+                user.phoneNumber = providerData.phoneNumber;
+                user.city = location.city;
+                user.district = location.district;
+                user.latitude = location.latitude;
+                user.longitude = location.longitude;
                 user.loginType = LoginType.Facebook;
 
                 console.log('Local Facebook  User: ' + JSON.stringify(user));
@@ -119,6 +124,8 @@ export class AuthService {
 
                 if (!userExist) {
                     await this.userService.insert(user);
+                } else {
+                    user = await this.userService.getUserByEmail(providerData.email);
                 }
 
                 AppData.user = user;
@@ -132,7 +139,6 @@ export class AuthService {
         } catch (e) {
             console.log('facebookLogin()', e);
         }
-
     }
 
     async googleLogin() {

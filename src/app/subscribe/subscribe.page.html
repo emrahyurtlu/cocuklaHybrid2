@@ -1,59 +1,61 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="home" text="Geri"></ion-back-button>
-    </ion-buttons>
-    <ion-title>
-      {{myTitle}}
-    </ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="home" text="Geri"></ion-back-button>
+        </ion-buttons>
+        <ion-title>
+            Üye Ol
+        </ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-  <img src="assets/img/cocukla_logo.png"
-       style="display:block;width:86px;height:auto;margin-left:auto;margin-right:auto;"/>
-  <div class="spacer-10"></div>
-  <form [formGroup]="newUser">
-    <ion-item>
-      <ion-label position="floating">
-        Ad Soyad
-      </ion-label>
-      <ion-input type="text" placeholder="Ad soyad giriniz" [(ngModel)]="userModel.displayName" name="name" formControlName="name" required></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">
-        Eposta
-      </ion-label>
-      <ion-input type="email" placeholder="Eposta giriniz" [(ngModel)]="userModel.email" name="email" formControlName="email" required></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">
-        Şifre
-      </ion-label>
-      <ion-input type="password" placeholder="Şifre giriniz" [(ngModel)]="userModel.password"
-                 name="password" formControlName="password" required></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">
-        İl
-      </ion-label>
-      <ion-select formControlName="city" name="city" [(ngModel)]="userModel.city"
-                  (ionChange)="setDistricts(userModel.city)">
-        <ion-select-option *ngFor="let city of cities" value="{{city.city_name}}">
-          {{city.city_name}}
-        </ion-select-option>
-      </ion-select>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">
-        İlçe
-      </ion-label>
-      <ion-select formControlName="district" name="district" [(ngModel)]="userModel.district">
-        <ion-select-option *ngFor="let d of districts" value="{{d}}">
-          {{d}}
-        </ion-select-option>
-      </ion-select>
-    </ion-item>
-  </form>
-  <ion-button shape="round.none" expand="block" [disabled]="!newUser.valid" (click)="subscribe()">ÜYE OL</ion-button>
+    <img src="assets/img/cocukla_logo.png"
+         style="display:block;width:86px;height:auto;margin-left:auto;margin-right:auto;"/>
+    <div class="spacer-10"></div>
+    <form [formGroup]="newUser">
+        <ion-item>
+            <ion-label position="floating">
+                Ad Soyad
+            </ion-label>
+            <ion-input [(ngModel)]="userModel.displayName" formControlName="name" name="name" placeholder="Ad soyad giriniz"
+                       required type="text"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label position="floating">
+                Eposta
+            </ion-label>
+            <ion-input [(ngModel)]="userModel.email" formControlName="email" name="email" placeholder="Eposta giriniz"
+                       required type="email"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label position="floating">
+                Şifre
+            </ion-label>
+            <ion-input [(ngModel)]="userModel.password" formControlName="password" name="password"
+                       placeholder="Şifre giriniz" required type="password"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label position="floating">
+                İl
+            </ion-label>
+            <ion-select (ionChange)="setDistricts(userModel.city)" [(ngModel)]="userModel.city" formControlName="city"
+                        name="city">
+                <ion-select-option *ngFor="let city of cities" value="{{city.city_name}}">
+                    {{city.city_name}}
+                </ion-select-option>
+            </ion-select>
+        </ion-item>
+        <ion-item>
+            <ion-label position="floating">
+                İlçe
+            </ion-label>
+            <ion-select [(ngModel)]="userModel.district" formControlName="district" name="district">
+                <ion-select-option *ngFor="let d of districts" value="{{d}}">
+                    {{d}}
+                </ion-select-option>
+            </ion-select>
+        </ion-item>
+    </form>
+    <ion-button (click)="subscribe()" [disabled]="!newUser.valid" expand="block" shape="round.none">ÜYE OL</ion-button>
 </ion-content>

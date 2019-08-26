@@ -55,12 +55,7 @@ export class UserService {
 
     async update(model: UserModel) {
         try {
-            await this.userCollection.doc(model.email).update({
-                name: model.displayName,
-                city: model.city,
-                district: model.district,
-                update: Date.now()
-            });
+            await this.userCollection.doc(model.email).update(JSON.parse(JSON.stringify(model)));
         } catch (e) {
             console.error(e);
         }

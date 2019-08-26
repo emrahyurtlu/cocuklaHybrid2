@@ -1,5 +1,3 @@
-import {LocationModel} from './LocationModel';
-
 export class UserModel {
     public uid = '';
     public displayName = '';
@@ -8,13 +6,15 @@ export class UserModel {
     public photoURL = '';
     public phoneNumber = '';
     public providerId = '';
-    public city = '';
-    public district = '';
+    public latitude: number | null;
+    public longitude: number | null;
+    public city: string | null;
+    public district: string | null;
     public favorites = [];
     public messagingTokens = [];
     public isAuthorized = false;
     public loginType: number;
-    public insert = Date.now();
+    public insert;
     public update = Date.now();
-    public location: LocationModel | null;
+    // public location: LocationModel | null;
 }

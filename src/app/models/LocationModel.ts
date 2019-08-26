@@ -1,8 +1,8 @@
 export class LocationModel {
-    latitude: number | null;
-    longitude: number | null;
-    city: string | null;
-    district: string | null;
+    public latitude: number | null;
+    public longitude: number | null;
+    public city: string | null;
+    public district: string | null;
 
     constructor(lat: number = 0, long: number = 0, city: string = '', dist: string = '') {
         this.latitude = lat;
