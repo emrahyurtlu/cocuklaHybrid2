@@ -15,43 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "97541673682-a0kuk0bfqsffapkadpsdbv929n21c7be.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.cocukla.app",
-            "certificate_hash": "33ece5970b3b9a8e9293cca6006809cbcb7a8f1d"
-          }
-        },
-        {
-          "client_id": "97541673682-0i5j71qtmeglh632so38set4rsitofgb.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.cocukla.app",
-            "certificate_hash": "a93d1e3388a17c79ce6628b310a373d0d76db1f0"
-          }
-        },
-        {
-          "client_id": "97541673682-56rg9nencdljmpiq12n5jaka3ief3aup.apps.googleusercontent.com",
+          "client_id": "97541673682-okch99tvbsd4uni9gjmh0ge1rgva2it5.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.cocukla.app",
             "certificate_hash": "b741f1f3300ea6bfbd4ee17287714f608cdda6a7"
-          }
-        },
-        {
-          "client_id": "97541673682-nj6m69ffr368q8k3isv2fednucuu5eh2.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.cocukla.app",
-            "certificate_hash": "31abb00f8f89ebc200ae0d78830bea742150f9a1"
-          }
-        },
-        {
-          "client_id": "97541673682-cs8q363scbp9c5utvdhprtilid01dg58.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.cocukla.app",
-            "certificate_hash": "dc395a7762f69ad1c0d85db1a830629fd21aa460"
           }
         },
         {

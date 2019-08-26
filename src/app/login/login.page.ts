@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {UserModel} from '../models/UserModel';
-//import {LoginService} from '../services/login.service';
 import {AuthService} from '../services/auth.service';
 import {Router} from '@angular/router';
 import {CacheService} from '../services/cache.service';
@@ -29,8 +28,8 @@ export class LoginPage implements OnInit {
     }
 
     ngOnInit() {
-        this.authService.logout().then(value => {
-        });
+        /*this.authService.logout().then(value => {
+        });*/
     }
 
     async goToForgetPassword() {

@@ -84,7 +84,11 @@
     "plugins": {
       "cordova-plugin-camera": {},
       "cordova-plugin-geolocation": {},
-      "cordova-plugin-googleplus": {},
+      "cordova-plugin-googleplus": {
+        "REVERSED_CLIENT_ID": "com.googleusercontent.apps.97541673682-n5arn8g6rp15en7etkjgs5996noqutpp",
+        "WEB_APPLICATION_CLIENT_ID": "97541673682-blaqcb75q8sgnpoocjve9ucraeaod2km.apps.googleusercontent.com",
+        "ANDROID_CLIENT_ID": "97541673682-a0kuk0bfqsffapkadpsdbv929n21c7be.apps.googleusercontent.com"
+      },
       "cordova-plugin-whitelist": {},
       "cordova-plugin-statusbar": {},
       "cordova-plugin-device": {},

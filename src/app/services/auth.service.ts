@@ -22,7 +22,7 @@ export class AuthService {
     user: Observable<firebase.User>;
 
     // tslint:disable-next-line:max-line-length
-    constructor(public afAuth: AngularFireAuth, public userService: UserService, public router: Router, public alertHelper: AlertHelper, public gplus: GooglePlus, public  platform: Platform, public navCtrl: NavController, public logService: LogService, private fb: Facebook, public locationService: LocationService) {
+    constructor(public afAuth: AngularFireAuth, public userService: UserService, public router: Router, public alertHelper: AlertHelper, public gplus: GooglePlus, public  platform: Platform, public navCtrl: NavController, public logService: LogService, private facebook: Facebook, public locationService: LocationService) {
         this.user = this.afAuth.authState;
     }
 
@@ -70,6 +70,7 @@ export class AuthService {
             await this.afAuth.auth.signOut();
             if (this.platform.is('cordova')) {
                 await this.gplus.logout();
+                await this.facebook.logout();
             }
             await this.router.navigate(['login']);
         } catch (e) {
@@ -92,7 +93,7 @@ export class AuthService {
 
     async facebookLogin() {
         try {
-            const response = await this.fb.login(['public_profile', 'email']);
+            const response = await this.facebook.login(['public_profile', 'email']);
             const facebookCredential = firebase.auth.FacebookAuthProvider
                 .credential(response.authResponse.accessToken);
             const result = await firebase.auth().signInWithCredential(facebookCredential);
@@ -126,7 +127,7 @@ export class AuthService {
             }
 
 
-            await this.fb.logEvent(this.fb.EVENTS.EVENT_NAME_ADDED_TO_CART);
+            await this.facebook.logEvent(this.facebook.EVENTS.EVENT_NAME_ADDED_TO_CART);
 
         } catch (e) {
             console.log('facebookLogin()', e);
@@ -144,29 +145,35 @@ export class AuthService {
         }
     }
 
-    async nativeGoogleLogin() {
+    async nativeGoogleLogin(): Promise<void> {
         try {
-            const googleLogin = await this.gplus.login({
-                webClientId: '97541673682-blaqcb75q8sgnpoocjve9ucraeaod2km.apps.googleusercontent.com',
+            /*const googleLogin = await this.gplus.login({
+                webClientId: '97541673682-okch99tvbsd4uni9gjmh0ge1rgva2it5.apps.googleusercontent.com',
                 offline: true,
-                scopes: 'email profile'
-            });
+                scopes: 'profile email'
+            });*/
 
-            const userCredential = await this.afAuth.auth.signInWithCredential(
-                firebase.auth.GoogleAuthProvider.credential(googleLogin.idToken)
-            );
+            const googleLogin = await this.gplus.login({});
 
-            const providerData = userCredential.user.providerData[0];
+            console.log('googleLogin', googleLogin);
 
-            const user = providerData as UserModel;
+            const credential = firebase.auth.GoogleAuthProvider.credential(googleLogin.idToken);
 
-            console.log('Local Google  User: ' + JSON.stringify(user));
 
-            // await this.logService.log(JSON.stringify(AppData.user));
+            // tslint:disable-next-line:max-line-length
+            this.afAuth.auth.signInWithCredential(credential).then(value => console.log(JSON.stringify(value))).catch(reason => console.log(reason));
+
+            // const providerData = userCredential.user.providerData[0];
+
+            // const googleUser = providerData as UserModel;
+
+            console.log('Observable  User: ' + JSON.stringify(this.user));
+            this.user.subscribe(value => console.log('Observable ', JSON.stringify(value)));
+            // console.log('Local Google  User: ' + JSON.stringify(providerData));
 
             // await this.router.navigate(['home']);
         } catch (e) {
-            console.error(e);
+            console.error(JSON.stringify(e));
         }
     }
 
