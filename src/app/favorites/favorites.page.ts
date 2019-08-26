@@ -13,7 +13,7 @@ import {ModalController} from '@ionic/angular';
     styleUrls: ['./favorites.page.scss'],
 })
 export class FavoritesPage implements OnInit {
-    items: Array<PlaceModel>;
+    items: Array<PlaceModel> = new Array<PlaceModel>();
 
     // tslint:disable-next-line:max-line-length
     constructor(public userService: UserService, public alertHelper: AlertHelper, public router: Router, public modalCtrl: ModalController) {

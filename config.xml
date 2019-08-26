@@ -105,5 +105,5 @@
     <edit-config file="*-Info.plist" mode="merge" target="NSLocationWhenInUseUsageDescription">
         <string>Uygulama lokasyon bilgisini kullanır.</string>
     </edit-config>
-    <allow-navigation href="http://localhost:8100" sessionid="ab99ea17" />
+    <allow-navigation href="http://localhost:8100" sessionid="a19f4a25" />
 </widget>

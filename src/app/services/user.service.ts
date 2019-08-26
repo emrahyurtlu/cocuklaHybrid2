@@ -20,20 +20,7 @@ export class UserService {
 
     async insert(model: UserModel): Promise<any> {
         try {
-            const result = await this.userCollection.doc(model.email).set({
-                name: model.name,
-                email: model.email,
-                password: model.password,
-                city: model.city,
-                district: model.district,
-                favorites: model.favorites,
-                messagingTokens: model.messagingTokens,
-                isAuthorized: model.isAuthorized,
-                loginType: model.loginType,
-                insert: model.insert,
-                update: model.update,
-            });
-            console.log('ServiceFile', result);
+            const result = await this.userCollection.doc(model.email).set(JSON.parse(JSON.stringify(model)));
             return true;
         } catch (e) {
             console.error(e);
@@ -69,7 +56,7 @@ export class UserService {
     async update(model: UserModel) {
         try {
             await this.userCollection.doc(model.email).update({
-                name: model.name,
+                name: model.displayName,
                 city: model.city,
                 district: model.district,
                 update: Date.now()
@@ -94,7 +81,7 @@ export class UserService {
             const isFav = AppData.user.favorites.includes(documentID);
             if (isFav) {
                 // Remove it
-                let tempArr = [];
+                const tempArr = [];
                 AppData.user.favorites.map(value => {
                     if (value !== documentID) {
                         tempArr.push(value);
@@ -117,7 +104,7 @@ export class UserService {
         try {
             const places: Array<PlaceModel> = new Array<PlaceModel>();
             for (const documentID of AppData.user.favorites) {
-                let result = await this.placeService.get(documentID);
+                const result = await this.placeService.get(documentID);
                 if (result) {
                     places.push(result);
                 }

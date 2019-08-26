@@ -33,7 +33,7 @@ export class CommentformPage implements OnInit {
     console.log(this.commentModel);*/
     this.commentModel.isApproved = false;
     this.commentModel.timestamp = Date.now();
-    this.commentModel.name = AppData.user.name;
+    this.commentModel.name = AppData.user.displayName;
     this.commentModel.owner = AppData.user.email;
     const result = await this.placeService.addComment(this.commentModel, this.documentID);
     if (result) {

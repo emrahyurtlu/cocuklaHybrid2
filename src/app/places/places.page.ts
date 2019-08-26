@@ -53,12 +53,12 @@ export class PlacesPage implements OnInit {
 
     async getMyPlaces() {
         this.places = await this.placeService.getMyPlaces(AppData.user.email);
-        console.log('User places: ', this.places[0].name);
+        console.log('User places: ', this.places);
     }
 
     async refresh(event) {
         this.places = await this.placeService.getMyPlaces(AppData.user.email);
-        console.log('User places: ', this.places[0].name);
+        console.log('User places: ', this.places);
         event.target.complete();
     }
 }

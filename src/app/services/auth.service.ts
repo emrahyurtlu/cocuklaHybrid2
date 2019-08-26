@@ -9,6 +9,10 @@ import {Observable} from 'rxjs';
 import {NavController, Platform} from '@ionic/angular';
 import * as firebase from 'firebase';
 import {GooglePlus} from '@ionic-native/google-plus/ngx';
+import {LogService} from './log.service';
+import {Facebook} from '@ionic-native/facebook/ngx';
+import {LoginType} from '../helpers/enums';
+import {LocationService} from './location.service';
 
 
 @Injectable({
@@ -18,7 +22,7 @@ export class AuthService {
     user: Observable<firebase.User>;
 
     // tslint:disable-next-line:max-line-length
-    constructor(public afAuth: AngularFireAuth, public userService: UserService, public router: Router, public alertHelper: AlertHelper, public gplus: GooglePlus, public  platform: Platform, public navCtrl: NavController) {
+    constructor(public afAuth: AngularFireAuth, public userService: UserService, public router: Router, public alertHelper: AlertHelper, public gplus: GooglePlus, public  platform: Platform, public navCtrl: NavController, public logService: LogService, private fb: Facebook, public locationService: LocationService) {
         this.user = this.afAuth.authState;
     }
 
@@ -42,19 +46,19 @@ export class AuthService {
             console.error(e.code);
             switch (e.code) {
                 case 'auth/user-not-found':
-                    this.alertHelper.toastMessage('Kullanıcı bulunamadı.');
+                    await this.alertHelper.toastMessage('Kullanıcı bulunamadı.');
                     break;
                 case 'auth/invalid-email':
-                    this.alertHelper.toastMessage('Girdiğiniz eposta geçerli değil.');
+                    await this.alertHelper.toastMessage('Girdiğiniz eposta geçerli değil.');
                     break;
                 case 'auth/wrong-password':
-                    this.alertHelper.toastMessage('Girdiğiniz şifre yanlış. Şifreniz en az 6 karakterden oluşmalıdır.');
+                    await this.alertHelper.toastMessage('Girdiğiniz şifre yanlış. Şifreniz en az 6 karakterden oluşmalıdır.');
                     break;
                 case 'auth/user-disabled':
-                    this.alertHelper.toastMessage('Bu kullanıcı pasif yapılmış. Sisteme giriş yapamazsınız.');
+                    await this.alertHelper.toastMessage('Bu kullanıcı pasif yapılmış. Sisteme giriş yapamazsınız.');
                     break;
                 default:
-                    this.alertHelper.toastMessage('Lütfen kullanıcı adı ve şifre giriniz.');
+                    await this.alertHelper.toastMessage('Lütfen kullanıcı adı ve şifre giriniz.');
                     break;
             }
         }
@@ -65,7 +69,7 @@ export class AuthService {
             console.log('wanna logout first!');
             await this.afAuth.auth.signOut();
             if (this.platform.is('cordova')) {
-                this.gplus.logout();
+                await this.gplus.logout();
             }
             await this.router.navigate(['login']);
         } catch (e) {
@@ -86,29 +90,81 @@ export class AuthService {
         }
     }
 
+    async facebookLogin() {
+        try {
+            const response = await this.fb.login(['public_profile', 'email']);
+            const facebookCredential = firebase.auth.FacebookAuthProvider
+                .credential(response.authResponse.accessToken);
+            const result = await firebase.auth().signInWithCredential(facebookCredential);
+
+            const providerData = result.user.providerData[0];
+
+            const location = await this.locationService.getCurrentPosition();
+
+            const user = new UserModel();
+            user.uid = providerData.uid;
+            user.displayName = providerData.displayName;
+            user.email = providerData.email;
+            user.photoURL = providerData.photoURL;
+            user.phoneNumber = providerData.phoneNumber;
+            user.location = location;
+
+            if (user.uid !== null) {
+                user.loginType = LoginType.Facebook;
+
+                console.log('Local Facebook  User: ' + JSON.stringify(user));
+
+                const userExist: boolean = await this.userService.isAuthUserExist(user);
+
+                if (!userExist) {
+                    await this.userService.insert(user);
+                }
+
+                AppData.user = user;
+
+                await this.router.navigate(['home']);
+            }
+
+
+            await this.fb.logEvent(this.fb.EVENTS.EVENT_NAME_ADDED_TO_CART);
+
+        } catch (e) {
+            console.log('facebookLogin()', e);
+        }
+
+    }
+
     async googleLogin() {
         if (this.platform.is('cordova')) {
+            // alert('native');
             await this.nativeGoogleLogin();
         } else {
+            // alert('web');
             await this.webGoogleLogin();
         }
     }
 
     async nativeGoogleLogin() {
         try {
-            const gplusUser = await this.gplus.login({
+            const googleLogin = await this.gplus.login({
                 webClientId: '97541673682-blaqcb75q8sgnpoocjve9ucraeaod2km.apps.googleusercontent.com',
                 offline: true,
                 scopes: 'email profile'
             });
 
-            const result = await this.afAuth.auth.signInWithCredential(
-                firebase.auth.GoogleAuthProvider.credential(gplusUser.idToken)
+            const userCredential = await this.afAuth.auth.signInWithCredential(
+                firebase.auth.GoogleAuthProvider.credential(googleLogin.idToken)
             );
-            const userModel = new UserModel();
-            userModel.name = result.user.displayName;
-            userModel.email = result.user.email;
-            AppData.user = userModel;
+
+            const providerData = userCredential.user.providerData[0];
+
+            const user = providerData as UserModel;
+
+            console.log('Local Google  User: ' + JSON.stringify(user));
+
+            // await this.logService.log(JSON.stringify(AppData.user));
+
+            // await this.router.navigate(['home']);
         } catch (e) {
             console.error(e);
         }

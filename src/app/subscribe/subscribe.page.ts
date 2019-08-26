@@ -6,6 +6,7 @@ import {AlertHelper} from '../helpers/alert.helper';
 import {AuthService} from '../services/auth.service';
 import {CityModel} from '../models/CityModel';
 import {AppData} from '../app.data';
+import {LoginType} from '../helpers/enums';
 
 @Component({
     selector: 'app-subscribe',
@@ -48,10 +49,7 @@ export class SubscribePage implements OnInit {
                 await this.authService.createUser(this.userModel);
 
                 // Insert in auth database
-                this.userModel.insert = Date.now();
-                this.userModel.update = Date.now();
-                this.userModel.isAuthorized = false;
-                this.userModel.loginType = 2;
+                this.userModel.loginType = LoginType.Native;
                 await this.userService.insert(this.userModel);
 
                 // Alert the final

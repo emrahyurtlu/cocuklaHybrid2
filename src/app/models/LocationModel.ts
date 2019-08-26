@@ -4,7 +4,7 @@ export class LocationModel {
     city: string | null;
     district: string | null;
 
-    constructor(lat: number, long: number, city: string, dist: string) {
+    constructor(lat: number = 0, long: number = 0, city: string = '', dist: string = '') {
         this.latitude = lat;
         this.longitude = long;
         this.city = city;

@@ -19,19 +19,36 @@
     </ion-refresher-content>
   </ion-refresher>
 
-  <ion-card *ngFor="let item of items">
-    <img src="{{item.images[0]}}}" alt="{{item.name}}" (click)="gotoDetail(item.documentID)"/>
-    <ion-card-header>
-      <ion-card-title>{{item.name}}</ion-card-title>
-      <ion-card-subtitle>{{item.category}}</ion-card-subtitle>
-    </ion-card-header>
-    <ion-item>
-      <ion-button fill="outline" slot="end" (click)="favorite(item.documentID)">
-        <ion-icon icon="heart"></ion-icon>
-      </ion-button>
-      <ion-button fill="outline" slot="end" (click)="gotoDetail(item.documentID)">
-        <ion-icon icon="arrow-round-forward"></ion-icon>
-      </ion-button>
-    </ion-item>
-  </ion-card>
+  <ion-grid *ngIf="items.length > 0">
+    <ion-row>
+      <ion-col>
+        <ion-card *ngFor="let item of items">
+          <img src="{{item.images[0]}}}" alt="{{item.name}}" (click)="gotoDetail(item.documentID)"/>
+          <ion-card-header>
+            <ion-card-title>{{item.name}}</ion-card-title>
+            <ion-card-subtitle>{{item.category}}</ion-card-subtitle>
+          </ion-card-header>
+          <ion-item>
+            <ion-button fill="outline" slot="end" (click)="favorite(item.documentID)">
+              <ion-icon icon="heart"></ion-icon>
+            </ion-button>
+            <ion-button fill="outline" slot="end" (click)="gotoDetail(item.documentID)">
+              <ion-icon icon="arrow-round-forward"></ion-icon>
+            </ion-button>
+          </ion-item>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid *ngIf="items.length == 0">
+    <ion-row>
+      <ion-col>
+        <ion-text class="ion-text-center">
+          Kayıt bulunamadı.
+        </ion-text>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
 </ion-content>

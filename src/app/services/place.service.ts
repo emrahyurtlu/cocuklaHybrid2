@@ -64,7 +64,7 @@ export class PlaceService {
             const places: Array<PlaceModel> = new Array<PlaceModel>();
             const result = await this.collection.ref.where('owner', '==', email).get();
 
-            if (result.docs.length > 0) {
+            if (!result.empty) {
                 result.docs.forEach(doc => {
                     const place: PlaceModel = new PlaceModel();
                     place.documentID = doc.id;

@@ -22,7 +22,7 @@
                 refreshingText="Lütfen bekleyiniz...">
         </ion-refresher-content>
     </ion-refresher>
-    <ion-grid *ngIf="places">
+    <ion-grid *ngIf="places.length > 0">
         <ion-row>
             <ion-col>
                 <ion-card *ngFor="let place of places">
@@ -46,7 +46,7 @@
         </ion-row>
     </ion-grid>
 
-    <ion-grid *ngIf="!places">
+    <ion-grid *ngIf="places.length == 0">
         <ion-row>
             <ion-col>
                 <ion-text class="ion-text-center">

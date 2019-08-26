@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {UserModel} from '../models/UserModel';
-import {LoginService} from '../services/login.service';
+//import {LoginService} from '../services/login.service';
 import {AuthService} from '../services/auth.service';
 import {Router} from '@angular/router';
 import {CacheService} from '../services/cache.service';
@@ -14,7 +14,7 @@ import {NativeGeocoder, NativeGeocoderOptions, NativeGeocoderResult} from '@ioni
     selector: 'app-login',
     templateUrl: './login.page.html',
     styleUrls: ['./login.page.scss'],
-    providers: [LoginService]
+    // providers: [LoginService]
 })
 export class LoginPage implements OnInit {
     public userModel: UserModel = new UserModel();
@@ -33,12 +33,12 @@ export class LoginPage implements OnInit {
         });
     }
 
-    goToForgetPassword() {
-        this.router.navigate(['forgetpassword']);
+    async goToForgetPassword() {
+        await this.router.navigate(['forgetpassword']);
     }
 
-    goToSubscribe(params) {
-        this.router.navigate(['subscribe']);
+    async goToSubscribe(params) {
+        await this.router.navigate(['subscribe']);
     }
 
     async login() {
@@ -52,12 +52,17 @@ export class LoginPage implements OnInit {
         await this.authService.googleLogin();
     }
 
+    async loginWithFacebook() {
+        await this.getGeolocation();
+        await this.authService.facebookLogin();
+    }
+
     async getGeolocation() {
         try {
             const result = await this.geolocation.getCurrentPosition();
             AppData.location = new LocationModel(result.coords.latitude, result.coords.longitude, 'Ankara', 'Çankaya');
+            console.log('getGeolocation() ', AppData.location);
             await this.setCityAndDistrict(result.coords.latitude, result.coords.longitude);
-            console.log(AppData.location);
         } catch (e) {
             console.log('Error getting location' + JSON.stringify(e));
         }
@@ -77,7 +82,7 @@ export class LoginPage implements OnInit {
             AppData.location.city = detail.administrativeArea;
             AppData.location.district = detail.subAdministrativeArea;
 
-            console.log(JSON.stringify(result[0]));
+            console.log('setCityAndDistrict() ', JSON.stringify(result[0]));
 
         } catch (e) {
             console.error(e);

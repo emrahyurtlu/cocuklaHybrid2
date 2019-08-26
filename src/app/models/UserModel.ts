@@ -1,29 +1,20 @@
+import {LocationModel} from './LocationModel';
+
 export class UserModel {
-    public name: string;
-    public email: string;
-    public password: string;
-    public city: string;
-    public district: string;
+    public uid = '';
+    public displayName = '';
+    public email = '';
+    public password = '';
+    public photoURL = '';
+    public phoneNumber = '';
+    public providerId = '';
+    public city = '';
+    public district = '';
     public favorites = [];
     public messagingTokens = [];
-    public isAuthorized: boolean;
+    public isAuthorized = false;
     public loginType: number;
-    public insert: number;
-    public update: number;
-
-    toObject(): object {
-        return {
-            name: this.name,
-            email: this.email,
-            password: this.password,
-            city: this.city,
-            district: this.district,
-            favorites: this.favorites,
-            messagingTokens: this.messagingTokens,
-            isAuthorized: this.isAuthorized,
-            loginType: this.loginType,
-            insert: this.insert,
-            update: this.update,
-        };
-    }
+    public insert = Date.now();
+    public update = Date.now();
+    public location: LocationModel | null;
 }

@@ -18,9 +18,9 @@ import {Camera} from '@ionic-native/camera/ngx';
 import {AngularFireModule} from '@angular/fire';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {LeftnavPageModule} from './leftnav/leftnav.module';
-// import {Firebase} from '@ionic-native/firebase/ngx';
 import {NativeGeocoder} from '@ionic-native/native-geocoder/ngx';
 import {AngularFireStorage} from '@angular/fire/storage';
+import {Facebook} from '@ionic-native/facebook/ngx';
 
 @NgModule({
     declarations: [
@@ -36,7 +36,7 @@ import {AngularFireStorage} from '@angular/fire/storage';
         AngularFireAuthModule,
         AngularFireMessagingModule,
         LeftnavPageModule,
-        ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production})
+        ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
     ],
     providers: [
         AngularFireStorage,
@@ -46,7 +46,7 @@ import {AngularFireStorage} from '@angular/fire/storage';
         NativeGeocoder,
         GooglePlus,
         Camera,
-        // Firebase,
+        Facebook,
         {provide: RouteReuseStrategy, useClass: IonicRouteStrategy}
     ],
     exports: [],
