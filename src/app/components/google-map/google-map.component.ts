@@ -1,7 +1,6 @@
-import {AfterContentInit, AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AfterContentInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {google} from 'google-maps';
 import {AppData} from '../../app.data';
-import {mark} from '@angular/compiler-cli/src/ngtsc/perf/src/clock';
 import {PlaceModel} from '../../models/PlaceModel';
 import {PlaceService} from '../../services/place.service';
 import {Router} from '@angular/router';
@@ -14,12 +13,17 @@ import {Router} from '@angular/router';
 export class GoogleMapComponent implements OnInit, AfterContentInit {
     @ViewChild('mapElement', {static: true}) mapNativeElement: ElementRef;
     map: google.maps.Map;
+    error = false;
 
     constructor(public placeService: PlaceService, public router: Router) {
     }
 
     ngOnInit() {
-        this.initMap();
+        if (AppData.location.latitude && AppData.location.longitude) {
+            this.initMap();
+        } else {
+            this.error = true;
+        }
     }
 
 

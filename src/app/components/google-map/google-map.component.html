@@ -1,1 +1,2 @@
-<div id="map" #mapElement></div>
+<div #mapElement *ngIf="error == false" id="map"></div>
+<ion-text *ngIf="error">Konum servisiniz kapalı olduğu için bu sayfayı kullanamazsınız.</ion-text>

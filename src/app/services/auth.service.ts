@@ -38,8 +38,8 @@ export class AuthService {
                 if (user.email !== '') {
                     AppData.user = user;
                     await this.alertHelper.dismissLoading();
-                    await this.navCtrl.setDirection('root', true);
-                    await this.navCtrl.navigateRoot('home');
+                    // await this.navCtrl.navigateRoot('home');
+                    await this.navCtrl.navigateRoot('/menu/home');
                 }
             }
         } catch (e) {
@@ -131,7 +131,8 @@ export class AuthService {
 
                 AppData.user = user;
 
-                await this.router.navigate(['home']);
+                // await this.router.navigate(['home']);
+                await this.navCtrl.navigateRoot('/menu/home');
             }
 
 

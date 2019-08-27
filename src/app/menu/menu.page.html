@@ -1,0 +1,31 @@
+<ion-split-pane>
+  <ion-menu contentId="content">
+
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Menü</ion-title>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content>
+      <ion-list>
+        <ion-menu-toggle *ngFor="let p of pages" auto-hide="false">
+          <ion-item routerDirection="root" routerLink="{{p.url}}">
+            <ion-icon name="{{p.icon}}" slot="start"></ion-icon>
+            <ion-label>
+              {{p.title}}
+            </ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+        <ion-item tappable routerLink="/login" routerDirection="root">
+          <ion-icon name="log-out" slot="start"></ion-icon>
+          Çıkış
+        </ion-item>
+      </ion-list>
+    </ion-content>
+
+  </ion-menu>
+
+  <ion-router-outlet id="content" main></ion-router-outlet>
+
+</ion-split-pane>

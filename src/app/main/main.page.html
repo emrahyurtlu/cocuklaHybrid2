@@ -1,17 +1,26 @@
-<ion-header>
+<!--<ion-header>
     <ion-toolbar>
         <ion-buttons slot="start">
-            <ion-button (click)="showMenu()">
+            <ion-menu-button></ion-menu-button>
+            &lt;!&ndash;<ion-button (click)="showMenu()">
                 <ion-icon icon="menu"></ion-icon>
-            </ion-button>
+            </ion-button>&ndash;&gt;
         </ion-buttons>
         <ion-title>
             {{category}}
         </ion-title>
     </ion-toolbar>
+</ion-header>-->
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>{{category}}</ion-title>
+    </ion-toolbar>
 </ion-header>
 
-<ion-content padding *ngIf="isAuthorized">
+<ion-content *ngIf="isAuthorized" padding>
     <ion-refresher (ionRefresh)="refresh($event)">
         <ion-refresher-content
                 pullingIcon="arrow-dropdown"
@@ -21,8 +30,8 @@
     </ion-refresher>
     <div>
         <form>
-            <ion-searchbar placeholder="Arayın..." showCancelButton="focus" cancelButtonText="İptal"
-                           (ionChange)="search($event)" (ionCancel)="cancel()"></ion-searchbar>
+            <ion-searchbar (ionCancel)="cancel()" (ionChange)="search($event)" cancelButtonText="İptal"
+                           placeholder="Arayın..." showCancelButton="focus"></ion-searchbar>
         </form>
     </div>
     <ion-item>
@@ -31,28 +40,36 @@
     <ion-grid *ngIf="isAuthorized">
         <ion-row>
             <ion-col>
-                <ion-label (click)="getByCategory('Mekanlar')">
-                    <img src="assets/img/place.png" alt="Mekanlar"/>
-                    <ion-label>Mekanlar</ion-label>
-                </ion-label>
+                <div (click)="getByCategory('Mekanlar')" class="ion-text-center">
+                    <img alt="Mekanlar" src="assets/img/place.png"/>
+                    <div>
+                        <ion-label>Mekanlar</ion-label>
+                    </div>
+                </div>
             </ion-col>
             <ion-col>
-                <ion-label (click)="getByCategory('Aktiviteler')">
-                    <img src="assets/img/activity.png" alt="Aktiviteler"/>
-                    <ion-label>Aktiviteler</ion-label>
-                </ion-label>
+                <div (click)="getByCategory('Aktiviteler')" class="ion-text-center">
+                    <img alt="Aktiviteler" src="assets/img/activity.png"/>
+                    <div>
+                        <ion-label>Aktiviteler</ion-label>
+                    </div>
+                </div>
             </ion-col>
             <ion-col>
-                <ion-label (click)="getByCategory('Sağlık')">
-                    <img src="assets/img/health.png" alt="Sağlık"/>
-                    <ion-label>Sağlık</ion-label>
-                </ion-label>
+                <div (click)="getByCategory('Sağlık')" class="ion-text-center">
+                    <img alt="Sağlık" src="assets/img/health.png"/>
+                    <div>
+                        <ion-label>Sağlık</ion-label>
+                    </div>
+                </div>
             </ion-col>
             <ion-col>
-                <ion-label (click)="getByCategory('Alışveriş')">
-                    <img src="assets/img/shopping.png" alt="Alışveriş"/>
-                    <ion-label>Alışveriş</ion-label>
-                </ion-label>
+                <div (click)="getByCategory('Alışveriş')" class="ion-text-center">
+                    <img alt="Alışveriş" src="assets/img/shopping.png"/>
+                    <div>
+                        <ion-label>Alışveriş</ion-label>
+                    </div>
+                </div>
             </ion-col>
         </ion-row>
     </ion-grid>
@@ -63,7 +80,7 @@
     </ion-item>
 
     <ion-card *ngFor="let place of places">
-        <img src="{{place.images[0]}}" alt="{{place.name}}" (click)="gotoDetail(place.documentID)"/>
+        <img (click)="gotoDetail(place.documentID)" alt="{{place.name}}" src="{{place.images[0]}}"/>
         <ion-card-header>
             <ion-card-title>{{place.name}}</ion-card-title>
             <ion-card-subtitle>{{place.category}}</ion-card-subtitle>
@@ -75,10 +92,10 @@
         </ion-item>
 
         <ion-item>
-            <ion-button fill="outline" slot="end" (click)="favorite(place.documentID)">
+            <ion-button (click)="favorite(place.documentID)" fill="outline" slot="end">
                 <ion-icon icon="heart"></ion-icon>
             </ion-button>
-            <ion-button fill="outline" slot="end" (click)="gotoDetail(place.documentID)">
+            <ion-button (click)="gotoDetail(place.documentID)" fill="outline" slot="end">
                 <ion-icon icon="arrow-round-forward"></ion-icon>
             </ion-button>
         </ion-item>

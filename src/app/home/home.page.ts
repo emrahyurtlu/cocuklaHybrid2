@@ -9,8 +9,8 @@ import {AppData} from '../app.data';
 })
 export class HomePage {
 
-    constructor(public router: Router) {
 
+    constructor(public router: Router) {
         try {
             if (AppData.user == null) {
                 this.router.navigate(['login']).then(r => console.log('Unauthorized access: routing to login page.'));

@@ -1,15 +1,25 @@
-<ion-header>
+<!--<ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-button (click)="showMenu()">
+      &lt;!&ndash;<ion-button (click)="showMenu()">
         <ion-icon icon="menu"></ion-icon>
-      </ion-button>
+      </ion-button>&ndash;&gt;
+      <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
       Favorilerim
     </ion-title>
   </ion-toolbar>
+</ion-header>-->
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Favorilerim</ion-title>
+  </ion-toolbar>
 </ion-header>
+
 <ion-content padding>
   <ion-refresher (ionRefresh)="refresh($event)">
     <ion-refresher-content
