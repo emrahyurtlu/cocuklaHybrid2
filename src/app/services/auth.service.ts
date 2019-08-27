@@ -38,6 +38,7 @@ export class AuthService {
                 if (user.email !== '') {
                     AppData.user = user;
                     await this.alertHelper.dismissLoading();
+                    await this.navCtrl.setDirection('root', true);
                     await this.navCtrl.navigateRoot('home');
                 }
             }

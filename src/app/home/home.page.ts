@@ -1,7 +1,6 @@
 import {Component} from '@angular/core';
 import {Router} from '@angular/router';
 import {AppData} from '../app.data';
-import {MessagingService} from '../services/messaging.service';
 
 @Component({
     selector: 'app-tabs',
@@ -11,6 +10,7 @@ import {MessagingService} from '../services/messaging.service';
 export class HomePage {
 
     constructor(public router: Router) {
+
         try {
             if (AppData.user == null) {
                 this.router.navigate(['login']).then(r => console.log('Unauthorized access: routing to login page.'));
@@ -30,4 +30,6 @@ export class HomePage {
             console.log(e);
         }
     }
+
+
 }

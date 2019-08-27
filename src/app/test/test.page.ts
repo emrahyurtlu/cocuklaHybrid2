@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AlertHelper} from '../helpers/alert.helper';
+import {MenuController} from '@ionic/angular';
 
 @Component({
     selector: 'app-test',
@@ -9,7 +10,8 @@ import {AlertHelper} from '../helpers/alert.helper';
 
 export class TestPage implements OnInit {
 
-    constructor(public alertHelper: AlertHelper) {
+    constructor(public alertHelper: AlertHelper, private menu: MenuController) {
+        this.openFirst();
     }
 
     ngOnInit() {
@@ -17,5 +19,10 @@ export class TestPage implements OnInit {
 
     async buttonClick() {
         await this.alertHelper.loading();
+    }
+
+    async openFirst() {
+        await this.menu.enable(true, 'first');
+        await this.menu.open('first');
     }
 }
