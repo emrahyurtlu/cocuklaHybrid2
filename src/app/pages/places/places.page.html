@@ -11,7 +11,7 @@
 
 <ion-content padding>
     <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-        <ion-fab-button color="primary" routerLink="placeform/0" routerDirection="forward">
+        <ion-fab-button color="primary" routerLink="/menu/placeform/0" routerDirection="forward">
             <ion-icon icon="add"></ion-icon>
         </ion-fab-button>
     </ion-fab>
@@ -26,16 +26,16 @@
         <ion-row>
             <ion-col>
                 <ion-card *ngFor="let place of places">
-                    <img src="{{place.images[0]}}}" alt="{{place.name}}" routerLink="placeform/{{place.documentID}}" routerDirection="forward" *ngIf="place.isApproved || userCanApprove"/>
-                    <img src="{{place.images[0]}}}" alt="{{place.name}}" *ngIf="!place.isApproved"/>
+                    <img src="{{place.images[0]}}}" alt="{{place.name}}" routerLink="/menu/placeform/{{place.documentID}}" routerDirection="forward" *ngIf="place.isApproved || userCanApprove"/>
+                    <img src="{{place.images[0]}}}" alt="{{place.name}}" *ngIf="place.isApproved === false"/>
                     <ion-card-header>
                         <ion-card-title>{{place.name}}</ion-card-title>
                         <ion-card-subtitle *ngIf="place.isApproved">{{place.category}}</ion-card-subtitle>
-                        <ion-card-subtitle *ngIf="!place.isApproved" color="danger">İÇERİK HENÜZ ONAYLANMADI
+                        <ion-card-subtitle *ngIf="place.isApproved === false" color="danger">İÇERİK HENÜZ ONAYLANMADI
                         </ion-card-subtitle>
                     </ion-card-header>
                     <ion-item>
-                        <ion-button fill="outline" slot="end" routerLink="detail/{{place.documentID}}" routerDirection="forward"
+                        <ion-button fill="outline" slot="end" routerLink="/menu/placeform/{{place.documentID}}" routerDirection="forward"
                                     *ngIf="place.isApproved || userCanApprove">
                             <ion-icon icon="arrow-round-forward"></ion-icon>
                         </ion-button>

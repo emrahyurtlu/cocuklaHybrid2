@@ -28,6 +28,7 @@ export class PlaceformPage implements OnInit {
     public cities = new Array<CityModel>();
     public districts: any[];
     public properties = Array<PropertyModel>();
+    isAuthorized: boolean = AppData.user.isAuthorized;
 
     // tslint:disable-next-line:max-line-length
     constructor(public formBuilder: FormBuilder, public placeService: PlaceService, public alertHelper: AlertHelper, public route: ActivatedRoute, public camera: Camera, public fileUploadService: FileUploadService, public alertController: AlertController) {
@@ -62,8 +63,9 @@ export class PlaceformPage implements OnInit {
                 this.selectedProperties = result.properties;
                 // console.log('BEFORE FOR: ', this.selectedProperties);
 
+                // tslint:disable-next-line:prefer-for-of
                 for (let i = 0; i < this.properties.length; i++) {
-                    let temp = this.properties[i];
+                    const temp = this.properties[i];
                     if (this.selectedProperties.includes(temp.slug)) {
                         this.properties[i].isChecked = true;
                     }
@@ -80,6 +82,9 @@ export class PlaceformPage implements OnInit {
     }
 
     async save() {
+
+        await this.alertHelper.loading();
+
         console.log(this.placeModel);
         console.log(this.tempPhotos);
 
@@ -92,7 +97,7 @@ export class PlaceformPage implements OnInit {
         }
 
 
-        let result: boolean;
+        let result = false;
 
         this.placeModel.properties = this.selectedProperties;
         this.placeModel.updateDate = Date.now();
@@ -115,6 +120,7 @@ export class PlaceformPage implements OnInit {
         } else {
             await this.alertHelper.error();
         }
+
     }
 
     setAttr(attr: string) {
@@ -159,6 +165,7 @@ export class PlaceformPage implements OnInit {
 
     reset() {
         this.selectedProperties = [];
+        // tslint:disable-next-line:prefer-for-of
         for (let i = 0; i < this.properties.length; i++) {
             this.properties[i].isChecked = false;
         }
@@ -179,7 +186,8 @@ export class PlaceformPage implements OnInit {
                 destinationType: this.camera.DestinationType.DATA_URL,
                 encodingType: this.camera.EncodingType.JPEG,
                 mediaType: this.camera.MediaType.PICTURE,
-                sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
+                sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
+                targetWidth: 1000
             };
 
             const imageData = await this.camera.getPicture(options);

@@ -152,19 +152,16 @@
 
     <div class="spacer-10"></div>
 
-    <ion-button shape="round.none" expand="block" *ngIf="placeModel.isApproved == false"
-                (click)="approve(placeModel.documentID)" color="secondary">Onayla
-    </ion-button>
+    <ion-button shape="round.none" expand="block" *ngIf="placeModel.isApproved == false && isAuthorized"
+                (click)="approve(placeModel.documentID)" color="secondary">Onayla</ion-button>
 
-    <ion-button shape="round.none" expand="block" *ngIf="placeModel.isApproved"
-                (click)="unApprove(placeModel.documentID)" color="secondary">Onayı iptal et
-    </ion-button>
+    <ion-button shape="round.none" expand="block" *ngIf="placeModel.isApproved && isAuthorized"
+                (click)="unApprove(placeModel.documentID)" color="secondary">Onayı iptal et</ion-button>
 
     <div class="spacer-10"></div>
 
-    <ion-button shape="round.none" expand="block" *ngIf="placeModel.isDeleted == false"
-                (click)="delete(placeModel.documentID)" color="dark">Sil
-    </ion-button>
+    <ion-button shape="round.none" expand="block" *ngIf="placeModel.documentID !== null"
+                (click)="delete(placeModel.documentID)" color="dark">Sil</ion-button>
 
   </form>
 </ion-content>

@@ -85,7 +85,9 @@ export class AuthService {
 
     async createUser(model: UserModel) {
         try {
+            await this.alertHelper.loading();
             const result = await this.afAuth.auth.createUserWithEmailAndPassword(model.email, model.password);
+            await this.alertHelper.dismissLoading();
             return result.user != null;
         } catch (e) {
             console.error(e);

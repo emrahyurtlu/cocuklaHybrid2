@@ -7,16 +7,15 @@ import {CommentModel} from '../models/CommentModel';
     providedIn: 'root'
 })
 export class PlaceService {
-    public collection: AngularFirestoreCollection;
-    public collectionName = 'places';
+    public placeRef: AngularFirestoreCollection;
 
     constructor(public fireStore: AngularFirestore) {
-        this.collection = fireStore.collection(this.collectionName);
+        this.placeRef = fireStore.collection<PlaceModel>('places');
     }
 
     async get(documentID: string) {
         try {
-            const result = await this.collection.doc(documentID).ref.get();
+            const result = await this.placeRef.doc(documentID).ref.get();
             let place: PlaceModel = result.data() as PlaceModel;
             place = result.data() as PlaceModel;
             place.documentID = result.id;
@@ -30,7 +29,7 @@ export class PlaceService {
         try {
             const places: Array<PlaceModel> = new Array<PlaceModel>();
             // tslint:disable-next-line:max-line-length
-            const result = await this.collection.ref.where('category', '==', category).where('isApproved', '==', true).where('isDeleted', '==', false).get();
+            const result = await this.placeRef.ref.where('category', '==', category).where('isApproved', '==', true).where('isDeleted', '==', false).get();
             result.docs.forEach(doc => {
                 const place: PlaceModel = doc.data() as PlaceModel;
                 place.documentID = doc.id;
@@ -46,7 +45,7 @@ export class PlaceService {
         try {
             const places: Array<PlaceModel> = new Array<PlaceModel>();
             // tslint:disable-next-line:max-line-length
-            const result = await this.collection.ref.where('city', '==', city).where('isApproved', '==', true).where('isDeleted', '==', false).get();
+            const result = await this.placeRef.ref.where('city', '==', city).where('isApproved', '==', true).where('isDeleted', '==', false).get();
             result.docs.forEach(doc => {
                 const place: PlaceModel = doc.data() as PlaceModel;
                 place.documentID = doc.id;
@@ -62,7 +61,7 @@ export class PlaceService {
         try {
             console.log('Places owner is: ', email);
             const places: Array<PlaceModel> = new Array<PlaceModel>();
-            const result = await this.collection.ref.where('owner', '==', email).get();
+            const result = await this.placeRef.ref.where('owner', '==', email).get();
 
             if (!result.empty) {
                 result.docs.forEach(doc => {
@@ -104,7 +103,7 @@ export class PlaceService {
     async pendingContent() {
         try {
             const places: Array<PlaceModel> = new Array<PlaceModel>();
-            const result = await this.collection.ref.where('isApproved', '==', false).get();
+            const result = await this.placeRef.ref.where('isApproved', '==', false).get();
             // const result = await this.fireStore.collection<PlaceModel>(this.collectionName).ref.where('owner', '==', email).get();
 
             if (result.docs.length > 0) {
@@ -147,7 +146,7 @@ export class PlaceService {
     async getList() {
         try {
             const places: Array<PlaceModel> = new Array<PlaceModel>();
-            const result = await this.collection.ref.get();
+            const result = await this.placeRef.ref.get();
             result.docs.forEach(doc => {
                 const place: PlaceModel = doc.data() as PlaceModel;
                 place.documentID = doc.id;
@@ -161,7 +160,7 @@ export class PlaceService {
 
     async insert(model: PlaceModel): Promise<boolean> {
         try {
-            await this.collection.add(model.toObject());
+            await this.placeRef.add(JSON.parse(JSON.stringify(model)));
             return true;
         } catch (e) {
             console.error(e);
@@ -171,7 +170,7 @@ export class PlaceService {
 
     async update(documentID: string, model: PlaceModel): Promise<boolean> {
         try {
-            await this.collection.doc(documentID).update(model);
+            await this.placeRef.doc(documentID).update(model);
             return true;
         } catch (e) {
             console.error(e);
@@ -181,7 +180,7 @@ export class PlaceService {
 
     async delete(documentID: string) {
         try {
-            this.collection.doc(documentID).update({isDeleted: true});
+            this.placeRef.doc(documentID).update({isDeleted: true});
         } catch (e) {
             console.error(e);
         }
@@ -189,7 +188,7 @@ export class PlaceService {
 
     async activate(documentID: string) {
         try {
-            this.collection.doc(documentID).update({isActive: true});
+            this.placeRef.doc(documentID).update({isActive: true});
         } catch (e) {
             console.error(e);
         }
@@ -197,7 +196,7 @@ export class PlaceService {
 
     async deActivate(documentID: string) {
         try {
-            this.collection.doc(documentID).update({isActive: false});
+            this.placeRef.doc(documentID).update({isActive: false});
         } catch (e) {
             console.error(e);
         }
@@ -205,7 +204,7 @@ export class PlaceService {
 
     async approve(documentID: string) {
         try {
-            this.collection.doc(documentID).update({isApproved: true});
+            this.placeRef.doc(documentID).update({isApproved: true});
         } catch (e) {
             console.error(e);
         }
@@ -213,7 +212,7 @@ export class PlaceService {
 
     async unApprove(documentID: string) {
         try {
-            this.collection.doc(documentID).update({isApproved: false});
+            this.placeRef.doc(documentID).update({isApproved: false});
         } catch (e) {
             console.error(e);
         }
@@ -251,6 +250,6 @@ export class PlaceService {
     }
 
     async updateOnlyImages(model: PlaceModel) {
-        this.collection.doc(model.documentID).update({images: model.images});
+        this.placeRef.doc(model.documentID).update({images: model.images});
     }
 }
