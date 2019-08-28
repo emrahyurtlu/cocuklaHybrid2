@@ -16,8 +16,20 @@ const routes: Routes = [
                 loadChildren: '../main/main.module#MainPageModule'
             },
             {
+                path: 'tab1/detail/:documentID',
+                loadChildren: '../detail/detail.module#DetailPageModule'
+            },
+            {
+                path: 'tab1/detail/:documentID/commentform/:documentID',
+                loadChildren: '../commentform/commentform.module#CommentformPageModule'
+            },
+            {
                 path: 'tab2',
                 loadChildren: '../favorites/favorites.module#FavoritesPageModule'
+            },
+            {
+                path: 'tab2/detail/:documentID',
+                loadChildren: '../detail/detail.module#DetailPageModule'
             },
             {
                 path: 'tab3',

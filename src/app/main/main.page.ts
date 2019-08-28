@@ -5,8 +5,6 @@ import {AppData} from '../app.data';
 import {AlertHelper} from '../helpers/alert.helper';
 import {PlaceService} from '../services/place.service';
 import {PlaceModel} from '../models/PlaceModel';
-import {ModalController} from '@ionic/angular';
-import {LeftnavPage} from '../leftnav/leftnav.page';
 
 @Component({
     selector: 'app-main',
@@ -19,8 +17,8 @@ export class MainPage implements OnInit {
     isAuthorized = AppData.user !== null;
 
     // tslint:disable-next-line:max-line-length
-    constructor(public router: Router, public userService: UserService, public alertHelper: AlertHelper, public placeService: PlaceService, public modalCtrl: ModalController) {
-
+    constructor(public userService: UserService, public alertHelper: AlertHelper, public placeService: PlaceService, private router: Router) {
+            console.log(this.router.url);
     }
 
     ngOnInit() {
@@ -33,15 +31,6 @@ export class MainPage implements OnInit {
             const result = await this.userService.favorite(documentID, AppData.user.email);
             const message = result ? 'Favorilerden kaldırıldı.' : 'Favorilere ekledi';
             await this.alertHelper.toastMessage(message);
-        } catch (e) {
-            console.log(e);
-        }
-    }
-
-    async gotoDetail(documentID: string) {
-        try {
-            console.log(documentID + ' wanna go to detail');
-            await this.router.navigate(['detail', {documentID}]);
         } catch (e) {
             console.log(e);
         }
@@ -76,14 +65,6 @@ export class MainPage implements OnInit {
 
     async cancel() {
         await this.getByCategory(this.category);
-    }
-
-    async showMenu() {
-        console.log('Modal started');
-        const modal = await this.modalCtrl.create({
-            component: LeftnavPage,
-        });
-        await modal.present();
     }
 
     async refresh(event) {

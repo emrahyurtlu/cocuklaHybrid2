@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Router, RouterEvent} from '@angular/router';
+import {Router} from '@angular/router';
+import {AppData} from '../app.data';
 
 @Component({
     selector: 'app-menu',
@@ -14,14 +15,16 @@ export class MenuPage implements OnInit {
         {title: 'Onay Bekleyenler', url: '/menu/pending-content', icon: 'checkmark-circle'},
     ];
 
-    selectedPath = '';
-
-    constructor(private router: Router) {
-        this.router.events.subscribe((event: RouterEvent) => {
-            if (event && event.url) {
-                this.selectedPath = event.url;
+    constructor(public router: Router) {
+        console.log('Menü sayfasına istek geldi!');
+        try {
+            if (AppData.user == null) {
+                this.router.navigate(['/login']).then(r => console.log('Unauthorized access: routing to login page.'));
             }
-        });
+            // this.messagingService.setToken().then(value => console.log('Token taken.'));
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     ngOnInit() {

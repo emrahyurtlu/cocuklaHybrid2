@@ -80,7 +80,7 @@
     </ion-item>
 
     <ion-card *ngFor="let place of places">
-        <img (click)="gotoDetail(place.documentID)" alt="{{place.name}}" src="{{place.images[0]}}"/>
+        <img routerLink="detail/{{place.documentID}}" routerDirection="forward" alt="{{place.name}}" src="{{place.images[0]}}"/>
         <ion-card-header>
             <ion-card-title>{{place.name}}</ion-card-title>
             <ion-card-subtitle>{{place.category}}</ion-card-subtitle>
@@ -95,7 +95,7 @@
             <ion-button (click)="favorite(place.documentID)" fill="outline" slot="end">
                 <ion-icon icon="heart"></ion-icon>
             </ion-button>
-            <ion-button (click)="gotoDetail(place.documentID)" fill="outline" slot="end">
+            <ion-button routerLink="detail/{{place.documentID}}" routerDirection="forward" fill="outline" slot="end">
                 <ion-icon icon="arrow-round-forward"></ion-icon>
             </ion-button>
         </ion-item>

@@ -19,6 +19,18 @@ const routes: Routes = [
             {
                 path: 'profile',
                 loadChildren: '../profile/profile.module#ProfilePageModule'
+            },
+            {
+                path: 'places',
+                loadChildren: '../places/places.module#PlacesPageModule'
+            },
+            {
+                path: 'places/placeform',
+                loadChildren: '../placeform/placeform.module#PlaceformPageModule'
+            },
+            {
+                path: 'pending-content',
+                loadChildren: '../pending-content/pending-content.module#PendingContentPageModule'
             }
         ]
     }
