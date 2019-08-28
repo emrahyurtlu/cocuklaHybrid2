@@ -17,7 +17,6 @@ import {GooglePlus} from '@ionic-native/google-plus/ngx';
 import {Camera} from '@ionic-native/camera/ngx';
 import {AngularFireModule} from '@angular/fire';
 import {ServiceWorkerModule} from '@angular/service-worker';
-import {LeftnavPageModule} from './leftnav/leftnav.module';
 import {NativeGeocoder} from '@ionic-native/native-geocoder/ngx';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {Facebook} from '@ionic-native/facebook/ngx';
@@ -35,7 +34,6 @@ import {Facebook} from '@ionic-native/facebook/ngx';
         AngularFirestoreModule,
         AngularFireAuthModule,
         AngularFireMessagingModule,
-        LeftnavPageModule,
         ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
     ],
     providers: [

@@ -3,7 +3,7 @@
     <name>Çocukla</name>
     <description>Hayatı çocukla yaşayın</description>
     <author email="emrahyurtlu@gmail.com" href="http://ionicframework.com/">Çocukla Yazılım Ekibi</author>
-    <content src="index.html" />
+    <content original-src="index.html" src="http://localhost:8100" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -105,4 +105,5 @@
     <edit-config file="*-Info.plist" mode="merge" target="NSLocationWhenInUseUsageDescription">
         <string>Uygulama lokasyon bilgisini kullanır.</string>
     </edit-config>
+    <allow-navigation href="http://localhost:8100" sessionid="07ada7f0" />
 </widget>

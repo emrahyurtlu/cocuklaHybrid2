@@ -4,14 +4,14 @@ import {UserService} from './user.service';
 import {UserModel} from '../models/UserModel';
 import {Router} from '@angular/router';
 import {AppData} from '../app.data';
-import {AlertHelper} from '../helpers/alert.helper';
+import {AlertHelper} from '../pages/helpers/alert.helper';
 import {Observable} from 'rxjs';
 import {NavController, Platform} from '@ionic/angular';
 import * as firebase from 'firebase';
 import {GooglePlus} from '@ionic-native/google-plus/ngx';
 import {LogService} from './log.service';
 import {Facebook} from '@ionic-native/facebook/ngx';
-import {LoginType} from '../helpers/enums';
+import {LoginType} from '../pages/helpers/enums';
 import {LocationService} from './location.service';
 
 
@@ -39,7 +39,7 @@ export class AuthService {
                     AppData.user = user;
                     await this.alertHelper.dismissLoading();
                     // await this.navCtrl.navigateRoot('home');
-                    await this.navCtrl.navigateRoot('/menu/home');
+                    await this.navCtrl.navigateRoot('/menu');
                 }
             }
         } catch (e) {
@@ -132,7 +132,7 @@ export class AuthService {
                 AppData.user = user;
 
                 // await this.router.navigate(['home']);
-                await this.navCtrl.navigateRoot('/menu/home');
+                await this.navCtrl.navigateRoot('/menu');
             }
 
 
