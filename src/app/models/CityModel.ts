@@ -1,5 +1,11 @@
 export class CityModel {
-    public city_name: string;
-    public districts: [];
+    public name: string;
+    public districts: string[];
     public plate: number;
+
+    constructor(n = '', d = [], p = 0) {
+        this.name = n;
+        this.districts = d;
+        this.plate = p;
+    }
 }

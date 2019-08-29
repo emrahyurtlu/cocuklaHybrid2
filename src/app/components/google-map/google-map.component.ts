@@ -1,4 +1,4 @@
-import {AfterContentInit, AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {google} from 'google-maps';
 import {AppData} from '../../app.data';
 import {PlaceModel} from '../../models/PlaceModel';
@@ -13,6 +13,7 @@ export class GoogleMapComponent implements OnInit, AfterViewInit {
     @ViewChild('mapElement', {static: false}) mapNativeElement: ElementRef;
     map: google.maps.Map;
     error = false;
+    infoWindows: google.maps.InfoWindow[] = [];
 
     constructor(public placeService: PlaceService) {
     }
@@ -79,6 +80,8 @@ export class GoogleMapComponent implements OnInit, AfterViewInit {
                 position,
             });
 
+            this.infoWindows.push(infowindow);
+
             const icon = {
                 url: 'assets/img/cocukla_logo.png', // image url
                 scaledSize: new google.maps.Size(40, 48, 'px', 'px'), // scaled size
@@ -94,7 +97,7 @@ export class GoogleMapComponent implements OnInit, AfterViewInit {
             });
 
             marker.addListener('click', () => {
-                infowindow.close();
+                this.hideAllInfoWindows();
                 infowindow.open(this.map, marker);
             });
         }
@@ -110,5 +113,11 @@ export class GoogleMapComponent implements OnInit, AfterViewInit {
         const numbers = place.position.split(',');
         // console.log(numbers[1]);
         return Number(numbers[1]);
+    }
+
+    private hideAllInfoWindows() {
+        for (const iw of this.infoWindows) {
+            iw.close();
+        }
     }
 }

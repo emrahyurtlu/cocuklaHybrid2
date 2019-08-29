@@ -44,7 +44,7 @@ export class ProfilePage implements OnInit {
     async setDistricts(name: any) {
         console.log(name);
         for (const city of this.cities) {
-            if (city.city_name === name) {
+            if (city.name === name) {
                 this.districts = city.districts;
                 break;
             }

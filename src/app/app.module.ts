@@ -21,6 +21,7 @@ import {NativeGeocoder} from '@ionic-native/native-geocoder/ngx';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {Facebook} from '@ionic-native/facebook/ngx';
 import {ComponentsModule} from './components/components.module';
+import {IonicStorageModule} from '@ionic/storage';
 
 @NgModule({
     declarations: [
@@ -36,7 +37,8 @@ import {ComponentsModule} from './components/components.module';
         AngularFireAuthModule,
         AngularFireMessagingModule,
         ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
-        ComponentsModule
+        ComponentsModule,
+        IonicStorageModule.forRoot()
     ],
     providers: [
         AngularFireStorage,

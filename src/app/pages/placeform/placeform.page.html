@@ -101,8 +101,8 @@
       </ion-label>
       <ion-select formControlName="city" name="city" [(ngModel)]="placeModel.city"
                   (ionChange)="setDistricts(placeModel.city)">
-        <ion-select-option *ngFor="let city of cities" value="{{city.city_name}}">
-          {{city.city_name}}
+        <ion-select-option *ngFor="let city of cities" value="{{city.name}}">
+          {{city.name}}
         </ion-select-option>
       </ion-select>
     </ion-item>

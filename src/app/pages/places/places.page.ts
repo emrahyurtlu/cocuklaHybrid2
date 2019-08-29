@@ -4,7 +4,6 @@ import {Router} from '@angular/router';
 import {PlaceService} from '../../services/place.service';
 import {UserService} from '../../services/user.service';
 import {AppData} from '../../app.data';
-import {AlertHelper} from '../helpers/alert.helper';
 
 @Component({
     selector: 'app-places',
@@ -16,7 +15,7 @@ export class PlacesPage implements OnInit {
     userCanApprove = AppData.user.isAuthorized;
 
     // tslint:disable-next-line:max-line-length
-    constructor(public router: Router, public  placeService: PlaceService, public userService: UserService, public alertHelper: AlertHelper) {
+    constructor(public router: Router, public  placeService: PlaceService, public userService: UserService) {
         console.log('ACTIVE USER: ', AppData.user);
     }
 

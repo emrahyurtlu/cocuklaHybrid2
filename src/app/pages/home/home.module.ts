@@ -36,6 +36,10 @@ const routes: Routes = [
                 loadChildren: '../explore/explore.module#ExplorePageModule'
             },
             {
+                path: 'tab3/detail/:documentID',
+                loadChildren: '../detail/detail.module#DetailPageModule'
+            },
+            {
                 path: '',
                 redirectTo: 'tab1',
                 pathMatch: 'full'
