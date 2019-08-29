@@ -1,18 +1,18 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { Routes, RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms';
+import {Routes, RouterModule} from '@angular/router';
 
-import { IonicModule } from '@ionic/angular';
+import {IonicModule} from '@ionic/angular';
 
-import { ExplorePage } from './explore.page';
+import {ExplorePage} from './explore.page';
 import {ComponentsModule} from '../../components/components.module';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: ExplorePage
-  }
+    {
+        path: '',
+        component: ExplorePage
+    }
 ];
 
 @NgModule({
@@ -21,8 +21,9 @@ const routes: Routes = [
         FormsModule,
         IonicModule,
         RouterModule.forChild(routes),
-        ComponentsModule
+        ComponentsModule,
     ],
-  declarations: [ExplorePage]
+    declarations: [ExplorePage]
 })
-export class ExplorePageModule {}
+export class ExplorePageModule {
+}

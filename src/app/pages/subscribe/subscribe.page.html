@@ -10,15 +10,15 @@
 </ion-header>
 
 <ion-content padding>
-    <img src="assets/img/cocukla_logo.png"
-         style="display:block;width:86px;height:auto;margin-left:auto;margin-right:auto;"/>
+    <img alt="Çocukla logo" class="logo" src="assets/img/cocukla_logo.png"/>
     <div class="spacer-10"></div>
     <form [formGroup]="newUser">
         <ion-item>
             <ion-label position="floating">
                 Ad Soyad
             </ion-label>
-            <ion-input [(ngModel)]="userModel.displayName" formControlName="name" name="name" placeholder="Ad soyad giriniz"
+            <ion-input [(ngModel)]="userModel.displayName" formControlName="name" name="name"
+                       placeholder="Ad soyad giriniz"
                        required type="text"></ion-input>
         </ion-item>
         <ion-item>

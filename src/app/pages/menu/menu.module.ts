@@ -6,6 +6,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {IonicModule} from '@ionic/angular';
 
 import {MenuPage} from './menu.page';
+import {ComponentsModule} from '../../components/components.module';
 
 const routes: Routes = [
     {
@@ -51,6 +52,7 @@ const routes: Routes = [
         CommonModule,
         FormsModule,
         IonicModule,
+        ComponentsModule,
         RouterModule.forChild(routes)
     ],
     declarations: [MenuPage]

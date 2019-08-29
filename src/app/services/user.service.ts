@@ -73,7 +73,7 @@ export class UserService {
 
     async favorite(documentID: string, email: string) {
         try {
-            const isFav = AppData.user.favorites.includes(documentID);
+            const isFav: boolean = AppData.user.favorites.includes(documentID);
             if (isFav) {
                 // Remove it
                 const tempArr = [];
@@ -89,6 +89,7 @@ export class UserService {
             }
 
             this.updateFavorites(email, AppData.user.favorites);
+
             return isFav;
         } catch (e) {
             console.error(e);

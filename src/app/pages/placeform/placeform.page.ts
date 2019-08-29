@@ -152,9 +152,30 @@ export class PlaceformPage implements OnInit {
     }
 
     async delete(documentID: string) {
-        await this.placeService.delete(documentID).then(() => {
-            this.alertHelper.success();
+        const alert = await this.alertController.create({
+            header: 'Dikkat',
+            // subHeader: 'Subtitle',
+            message: 'Bu kaydı silmek istediğinize emin misiniz?',
+            buttons: [
+                {
+                    text: 'Hayır',
+                    role: 'cancel',
+                    cssClass: 'secondary',
+                    handler: (blah) => {
+                        console.log('İşlem iptal edildi.');
+                    }
+                }, {
+                    text: 'Evet',
+                    handler: () => {
+
+                        this.placeService.delete(documentID).then(() => {
+                            this.alertHelper.success();
+                        });
+                    }
+                }
+            ]
         });
+        await alert.present();
     }
 
     async unApprove(documentID: string) {

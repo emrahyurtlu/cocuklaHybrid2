@@ -13,11 +13,13 @@ export class FavoritesPage implements OnInit {
     items: Array<PlaceModel> = new Array<PlaceModel>();
 
     constructor(public userService: UserService, public alertHelper: AlertHelper) {
-        this.userService.getUserFavorites().then(result => this.items = result);
-        console.log(this.items);
     }
 
     ngOnInit() {
+        this.userService.getUserFavorites().then(result => {
+            this.items = result;
+            console.log(this.items);
+        });
     }
 
     async favorite(documentID: string) {

@@ -20,7 +20,7 @@ const routes: Routes = [
         FormsModule,
         IonicModule,
         RouterModule.forChild(routes),
-        ReactiveFormsModule
+        ReactiveFormsModule,
     ],
   declarations: [ProfilePage]
 })

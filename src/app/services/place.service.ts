@@ -61,7 +61,7 @@ export class PlaceService {
         try {
             console.log('Places owner is: ', email);
             const places: Array<PlaceModel> = new Array<PlaceModel>();
-            const result = await this.placeRef.ref.where('owner', '==', email).get();
+            const result = await this.placeRef.ref.where('owner', '==', email).where('isDeleted', '==', false).get();
 
             if (!result.empty) {
                 result.docs.forEach(doc => {

@@ -1,31 +1,33 @@
-import {AfterContentInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AfterContentInit, AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {google} from 'google-maps';
 import {AppData} from '../../app.data';
 import {PlaceModel} from '../../models/PlaceModel';
 import {PlaceService} from '../../services/place.service';
-import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-google-map',
     templateUrl: './google-map.component.html',
     styleUrls: ['./google-map.component.scss'],
 })
-export class GoogleMapComponent implements OnInit, AfterContentInit {
-    @ViewChild('mapElement', {static: true}) mapNativeElement: ElementRef;
+export class GoogleMapComponent implements OnInit, AfterViewInit {
+    @ViewChild('mapElement', {static: false}) mapNativeElement: ElementRef;
     map: google.maps.Map;
     error = false;
 
-    constructor(public placeService: PlaceService, public router: Router) {
+    constructor(public placeService: PlaceService) {
     }
 
     ngOnInit() {
+
+    }
+
+    ngAfterViewInit(): void {
         if (AppData.location.latitude && AppData.location.longitude) {
             this.initMap();
         } else {
             this.error = true;
         }
     }
-
 
     async initMap() {
         const center = new google.maps.LatLng(AppData.location.latitude, AppData.location.longitude);
@@ -36,7 +38,7 @@ export class GoogleMapComponent implements OnInit, AfterContentInit {
             mapTypeId: google.maps.MapTypeId.ROADMAP,
             fullscreenControl: false,
             disableDefaultUI: true,
-            clickableIcons: true,
+            clickableIcons: true
         };
 
         this.map = new google.maps.Map(this.mapNativeElement.nativeElement, mapOptions);
@@ -53,10 +55,6 @@ export class GoogleMapComponent implements OnInit, AfterContentInit {
 
     }
 
-    ngAfterContentInit(): void {
-        this.initMap();
-    }
-
     createMarkers(places: Array<PlaceModel>) {
         for (const place of places) {
 
@@ -64,7 +62,7 @@ export class GoogleMapComponent implements OnInit, AfterContentInit {
 
             const content = '<ion-card>' +
                 // tslint:disable-next-line:max-line-length
-                '        <img src="' + place.images[0] + '" alt="' + place.name + '" (click)="this.gotoDetail(' + place.documentID + ')"/>' +
+                '        <img src="' + place.images[0] + '" alt="' + place.name + '" routerLink="detail/' + place.documentID + '"/>' +
                 '        <ion-card-header>' +
                 '            <ion-card-title>' + place.name + '</ion-card-title>' +
                 '            <ion-card-subtitle>' + place.category + '</ion-card-subtitle>' +
@@ -99,15 +97,6 @@ export class GoogleMapComponent implements OnInit, AfterContentInit {
                 infowindow.close();
                 infowindow.open(this.map, marker);
             });
-        }
-    }
-
-    async gotoDetail(documentID: string) {
-        try {
-            console.log(documentID + ' wanna go to detail');
-            await this.router.navigate(['detail', {documentID}]);
-        } catch (e) {
-            console.log(e);
         }
     }
 
