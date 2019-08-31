@@ -45,6 +45,15 @@
         <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png" />
     </platform>
     <platform name="ios">
+        <edit-config file="*-Info.plist" mode="merge" target="NSLocationWhenInUseUsageDescription">
+            <string>Uygulama lokasyon bilgisini kullanır.</string>
+        </edit-config>
+        <edit-config file="*-Info.plist" mode="merge" target="NSLocationAlwaysUsageDescription">
+            <string>Uygulama lokasyon bilgisini kullanır.</string>
+        </edit-config>
+        <edit-config file="*-Info.plist" mode="merge" target="NSPhotoLibraryUsageDescription">
+            <string>Uygulama galerinize erişebilir.</string>
+        </edit-config>
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
         <icon height="57" src="resources/ios/icon/icon.png" width="57" />
@@ -99,6 +108,8 @@
     <plugin name="cordova-plugin-splashscreen" spec="5.0.2" />
     <plugin name="cordova-plugin-ionic-webview" spec="^4.0.0" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
+    <variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value="Uygulama galerinize erişebilir." />
+    <variable name="PHOTO_LIBRARY_USAGE_DESCRIPTION" value="Uygulama galerinize erişebilir." />
     <config-file parent="NSCameraUsageDescription" platform="ios" target="*-Info.plist">
         <string>Uygulama fotoğra çekebilir.</string>
     </config-file>
@@ -108,8 +119,5 @@
     <config-file parent="FacebookAdvertiserIDCollectionEnabled" platform="ios" target="*-Info.plist">
         <true />
     </config-file>
-    <edit-config file="*-Info.plist" mode="merge" target="NSLocationWhenInUseUsageDescription">
-        <string>Uygulama lokasyon bilgisini kullanır.</string>
-    </edit-config>
     <allow-navigation href="http://localhost:8100" sessionid="fe7fd741" />
 </widget>
