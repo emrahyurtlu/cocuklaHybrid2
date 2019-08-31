@@ -138,7 +138,7 @@ export class AuthService {
             }
 
 
-            await this.facebook.logEvent(this.facebook.EVENTS.EVENT_NAME_ADDED_TO_CART);
+            // await this.facebook.logEvent(this.facebook.EVENTS.EVENT_NAME_ADDED_TO_CART);
 
         } catch (e) {
             console.log('facebookLogin()', e);
