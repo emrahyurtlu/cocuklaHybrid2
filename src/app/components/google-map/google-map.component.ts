@@ -3,6 +3,10 @@ import {google} from 'google-maps';
 import {AppData} from '../../app.data';
 import {PlaceModel} from '../../models/PlaceModel';
 import {PlaceService} from '../../services/place.service';
+import {Diagnostic} from '@ionic-native/diagnostic/ngx';
+import {LocationService} from '../../services/location.service';
+import {LocationModel} from '../../models/LocationModel';
+import {AlertHelper} from '../../pages/helpers/alert.helper';
 
 @Component({
     selector: 'app-google-map',
@@ -14,8 +18,20 @@ export class GoogleMapComponent implements OnInit, AfterViewInit {
     map: google.maps.Map;
     error = false;
     infoWindows: google.maps.InfoWindow[] = [];
+    isLocationAvailable: boolean;
 
-    constructor(public placeService: PlaceService) {
+    constructor(public placeService: PlaceService, private diagnostic: Diagnostic, private locationService: LocationService, private alertHelper: AlertHelper) {
+        this.diagnostic.isLocationAvailable().then((result: boolean) => {
+            this.isLocationAvailable = result;
+            if (result) {
+                this.locationService.getCurrentPosition().then((model: LocationModel) => {
+                    AppData.location = model;
+                });
+            } else {
+                this.alertHelper.toastMessage('Lütfen lokasyon servisini etkinleştiriniz.');
+                this.error = true;
+            }
+        });
     }
 
     ngOnInit() {
@@ -23,7 +39,10 @@ export class GoogleMapComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit(): void {
-        if (AppData.location.latitude && AppData.location.longitude) {
+        if (this.isLocationAvailable) {
+            this.locationService.getCurrentPosition().then((model: LocationModel) => {
+                AppData.location = model;
+            });
             this.initMap();
         } else {
             this.error = true;
@@ -31,29 +50,30 @@ export class GoogleMapComponent implements OnInit, AfterViewInit {
     }
 
     async initMap() {
-        const center = new google.maps.LatLng(AppData.location.latitude, AppData.location.longitude);
+        if (this.isLocationAvailable) {
+            const center = new google.maps.LatLng(AppData.location.latitude, AppData.location.longitude);
 
-        const mapOptions: google.maps.MapOptions = {
-            center,
-            zoom: 13,
-            mapTypeId: google.maps.MapTypeId.ROADMAP,
-            fullscreenControl: false,
-            disableDefaultUI: true,
-            clickableIcons: true
-        };
+            const mapOptions: google.maps.MapOptions = {
+                center,
+                zoom: 13,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                fullscreenControl: false,
+                disableDefaultUI: true,
+                clickableIcons: true
+            };
 
-        this.map = new google.maps.Map(this.mapNativeElement.nativeElement, mapOptions);
+            this.map = new google.maps.Map(this.mapNativeElement.nativeElement, mapOptions);
 
-        const marker = new google.maps.Marker({
-            map: this.map,
-            position: center,
-            draggable: false,
-        });
+            const marker = new google.maps.Marker({
+                map: this.map,
+                position: center,
+                draggable: false,
+            });
 
-        const places = await this.placeService.getByCity(AppData.location.city);
+            const places = await this.placeService.getByCity(AppData.location.city);
 
-        this.createMarkers(places);
-
+            this.createMarkers(places);
+        }
     }
 
     createMarkers(places: Array<PlaceModel>) {
@@ -105,13 +125,11 @@ export class GoogleMapComponent implements OnInit, AfterViewInit {
 
     getLat(place: PlaceModel): number {
         const numbers = place.position.split(',');
-        // console.log(numbers[0]);
         return Number(numbers[0]);
     }
 
     getLng(place: PlaceModel): number {
         const numbers = place.position.split(',');
-        // console.log(numbers[1]);
         return Number(numbers[1]);
     }
 

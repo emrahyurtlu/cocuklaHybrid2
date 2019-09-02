@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.cocukla.app" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.cocukla.app" version="3.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Çocukla</name>
     <description>Hayatı çocukla yaşayın</description>
     <author email="emrahyurtlu@gmail.com" href="http://ionicframework.com/">Çocukla Yazılım Ekibi</author>
@@ -105,5 +105,5 @@
     <edit-config file="*-Info.plist" mode="merge" target="NSLocationWhenInUseUsageDescription">
         <string>Uygulama lokasyon bilgisini kullanır.</string>
     </edit-config>
-    <allow-navigation href="http://localhost:8100" sessionid="fe7fd741" />
+    <allow-navigation href="http://localhost:8100" sessionid="2f98032f" />
 </widget>

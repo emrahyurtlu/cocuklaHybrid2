@@ -9,10 +9,8 @@ import {Observable} from 'rxjs';
 import {NavController, Platform} from '@ionic/angular';
 import * as firebase from 'firebase';
 import {GooglePlus} from '@ionic-native/google-plus/ngx';
-import {LogService} from './log.service';
 import {Facebook} from '@ionic-native/facebook/ngx';
 import {LoginType} from '../pages/helpers/enums';
-import {LocationService} from './location.service';
 
 
 @Injectable({
@@ -22,11 +20,11 @@ export class AuthService {
     user: Observable<firebase.User>;
 
     // tslint:disable-next-line:max-line-length
-    constructor(public afAuth: AngularFireAuth, public userService: UserService, public router: Router, public alertHelper: AlertHelper, public gplus: GooglePlus, public  platform: Platform, public navCtrl: NavController, public logService: LogService, private facebook: Facebook, public locationService: LocationService) {
+    constructor(public afAuth: AngularFireAuth, public userService: UserService, public router: Router, public alertHelper: AlertHelper, public gplus: GooglePlus, public  platform: Platform, public navCtrl: NavController, private facebook: Facebook) {
         this.user = this.afAuth.authState;
     }
 
-    async login(model: UserModel) {
+    async loginWithEmailAndPassword(model: UserModel) {
         try {
             await this.alertHelper.loading();
             const tempUser = await this.afAuth.auth.signInWithEmailAndPassword(model.email, model.password);
@@ -94,11 +92,12 @@ export class AuthService {
         }
     }
 
-    async facebookLogin() {
+    async loginWithFacebook() {
         try {
             const response = await this.facebook.login(['public_profile', 'email']);
             const facebookCredential = firebase.auth.FacebookAuthProvider
                 .credential(response.authResponse.accessToken);
+
             const result = await firebase.auth().signInWithCredential(facebookCredential);
 
             const providerData = result.user.providerData[0];
@@ -109,16 +108,16 @@ export class AuthService {
 
 
             if (user.uid !== null) {
-                const location = await this.locationService.getCurrentPosition();
+                // const location = await this.locationService.getCurrentPosition();
 
                 user.displayName = providerData.displayName;
                 user.email = providerData.email;
                 user.photoURL = providerData.photoURL;
                 user.phoneNumber = providerData.phoneNumber;
-                user.city = location.city;
+                /*user.city = location.city;
                 user.district = location.district;
                 user.latitude = location.latitude;
-                user.longitude = location.longitude;
+                user.longitude = location.longitude;*/
                 user.loginType = LoginType.Facebook;
 
                 console.log('Local Facebook  User: ' + JSON.stringify(user));
@@ -133,7 +132,6 @@ export class AuthService {
 
                 AppData.user = user;
 
-                // await this.router.navigate(['home']);
                 await this.navCtrl.navigateRoot('/menu');
             }
 
@@ -145,17 +143,7 @@ export class AuthService {
         }
     }
 
-    async googleLogin() {
-        if (this.platform.is('cordova')) {
-            // alert('native');
-            await this.nativeGoogleLogin();
-        } else {
-            // alert('web');
-            await this.webGoogleLogin();
-        }
-    }
-
-    async nativeGoogleLogin(): Promise<void> {
+    async loginWithGoogle() {
         try {
             /*const googleLogin = await this.gplus.login({
                 webClientId: '97541673682-okch99tvbsd4uni9gjmh0ge1rgva2it5.apps.googleusercontent.com',
@@ -184,21 +172,6 @@ export class AuthService {
             // await this.router.navigate(['home']);
         } catch (e) {
             console.error(JSON.stringify(e));
-        }
-    }
-
-    async webGoogleLogin(): Promise<void> {
-        try {
-            const provider = new firebase.auth.GoogleAuthProvider();
-            const credential = await this.afAuth.auth.signInWithPopup(provider);
-            console.log(credential.user);
-            if (credential.user.email !== null) {
-                AppData.user = await this.userService.getUserByEmail(credential.user.email);
-                console.log(AppData.user);
-                await this.router.navigate(['home']);
-            }
-        } catch (e) {
-            console.error(e);
         }
     }
 }

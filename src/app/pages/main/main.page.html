@@ -1,22 +1,14 @@
-<!--<ion-header>
-    <ion-toolbar>
-        <ion-buttons slot="start">
-            <ion-menu-button></ion-menu-button>
-            &lt;!&ndash;<ion-button (click)="showMenu()">
-                <ion-icon icon="menu"></ion-icon>
-            </ion-button>&ndash;&gt;
-        </ion-buttons>
-        <ion-title>
-            {{category}}
-        </ion-title>
-    </ion-toolbar>
-</ion-header>-->
 <ion-header>
     <ion-toolbar>
         <ion-buttons slot="start">
             <ion-menu-button></ion-menu-button>
         </ion-buttons>
         <ion-title>{{category}}</ion-title>
+        <ion-buttons slot="end">
+            <ion-button>
+                <ion-icon icon="options"></ion-icon>
+            </ion-button>
+        </ion-buttons>
     </ion-toolbar>
 </ion-header>
 
@@ -80,7 +72,8 @@
     </ion-item>
 
     <ion-card *ngFor="let place of places">
-        <img routerLink="detail/{{place.documentID}}" routerDirection="forward" alt="{{place.name}}" src="{{place.images[0]}}"/>
+        <img alt="{{place.name}}" routerDirection="forward" routerLink="detail/{{place.documentID}}"
+             src="{{place.images[0]}}"/>
         <ion-card-header>
             <ion-card-title>{{place.name}}</ion-card-title>
             <ion-card-subtitle>{{place.category}}</ion-card-subtitle>
@@ -95,7 +88,7 @@
             <ion-button (click)="favorite(place.documentID)" fill="outline" slot="end">
                 <ion-icon icon="heart"></ion-icon>
             </ion-button>
-            <ion-button routerLink="detail/{{place.documentID}}" routerDirection="forward" fill="outline" slot="end">
+            <ion-button fill="outline" routerDirection="forward" routerLink="detail/{{place.documentID}}" slot="end">
                 <ion-icon icon="arrow-round-forward"></ion-icon>
             </ion-button>
         </ion-item>

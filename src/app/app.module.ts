@@ -22,6 +22,7 @@ import {AngularFireStorage} from '@angular/fire/storage';
 import {Facebook} from '@ionic-native/facebook/ngx';
 import {ComponentsModule} from './components/components.module';
 import {IonicStorageModule} from '@ionic/storage';
+import {Diagnostic} from '@ionic-native/diagnostic/ngx';
 
 @NgModule({
     declarations: [
@@ -49,6 +50,7 @@ import {IonicStorageModule} from '@ionic/storage';
         GooglePlus,
         Camera,
         Facebook,
+        Diagnostic,
         {provide: RouteReuseStrategy, useClass: IonicRouteStrategy}
     ],
     exports: [],

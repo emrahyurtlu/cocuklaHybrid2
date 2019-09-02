@@ -5,6 +5,7 @@ import {AppData} from '../../app.data';
 import {AlertHelper} from '../helpers/alert.helper';
 import {PlaceService} from '../../services/place.service';
 import {PlaceModel} from '../../models/PlaceModel';
+import {ActionSheetController} from '@ionic/angular';
 
 @Component({
     selector: 'app-main',
@@ -17,8 +18,9 @@ export class MainPage implements OnInit {
     isAuthorized = AppData.user !== null;
 
     // tslint:disable-next-line:max-line-length
-    constructor(public userService: UserService, public alertHelper: AlertHelper, public placeService: PlaceService, private router: Router) {
+    constructor(public userService: UserService, public alertHelper: AlertHelper, public placeService: PlaceService, private router: Router, private actionSheetController: ActionSheetController) {
             console.log('main: ', this.router.url);
+            console.log('main: ', AppData.user);
     }
 
     ngOnInit() {
@@ -71,4 +73,44 @@ export class MainPage implements OnInit {
         await this.getByCategory(this.category);
         event.target.complete();
     }
+
+    /*async presentActionSheet() {
+        const actionSheet = await this.actionSheetController.create({
+            header: 'Detaylı arayın',
+            buttons: [{
+                text: 'Delete',
+                role: 'destructive',
+                icon: 'trash',
+                handler: () => {
+                    console.log('Delete clicked');
+                }
+            }, {
+                text: 'Share',
+                icon: 'share',
+                handler: () => {
+                    console.log('Share clicked');
+                }
+            }, {
+                text: 'Play (open modal)',
+                icon: 'arrow-dropright-circle',
+                handler: () => {
+                    console.log('Play clicked');
+                }
+            }, {
+                text: 'Favorite',
+                icon: 'heart',
+                handler: () => {
+                    console.log('Favorite clicked');
+                }
+            }, {
+                text: 'Cancel',
+                icon: 'close',
+                role: 'cancel',
+                handler: () => {
+                    console.log('Cancel clicked');
+                }
+            }]
+        });
+        await actionSheet.present();
+    }*/
 }
