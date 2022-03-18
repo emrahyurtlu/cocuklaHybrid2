@@ -5,13 +5,13 @@
 export const environment = {
   production: true,
   firebaseConfig: {
-    apiKey: 'AIzaSyAQqL_TOGMZpGC0YnhrQLg5o7sQPJYBjhs',
-    authDomain: 'cocukla-app.firebaseapp.com',
-    databaseURL: 'https://cocukla-app.firebaseio.com',
-    projectId: 'cocukla-app',
-    storageBucket: 'cocukla-app.appspot.com',
+    apiKey: 'xxx',
+    authDomain: 'xxx.firebaseapp.com',
+    databaseURL: 'https://xxx.firebaseio.com',
+    projectId: 'xxx',
+    storageBucket: 'xxx.appspot.com',
     messagingSenderId: '97541673682',
-    appId: '1:97541673682:web:f60c10dc9c3efa7d'
+    appId: '1:yyy:web:zzz'
   },
-  gmap: 'AIzaSyAQqL_TOGMZpGC0YnhrQLg5o7sQPJYBjhs'
+  gmap: 'ttt'
 };
